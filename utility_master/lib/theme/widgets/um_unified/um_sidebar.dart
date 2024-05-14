@@ -58,7 +58,6 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
 
-    // Using a standard container for the sidebar
     return Container(
       height: _height,
       margin: const EdgeInsets.all(20),
@@ -70,6 +69,7 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Header area with icons
           Padding(
               padding: EdgeInsets.only(left: _width >= widget.widthSwitch && !_minimize ? 20 : 18, top: 24),
               child: _width >= widget.widthSwitch && !_minimize
@@ -87,6 +87,7 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
                         Icon(Icons.hexagon_outlined, size: 50),
                       ],
                     )),
+          // Sidebar items list
           Expanded(
             child: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
@@ -95,49 +96,47 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
                 children: [
                   SizedBox(
                     height: 786.0,
-                    child: Stack(
-                      children: [
-                        ListView.separated(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return sideBarItem(
-                                textStyle: ShadTheme.of(context).textTheme.table,
-                                unSelectedIconColor: ShadTheme.of(context).colorScheme.foreground,
-                                unSelectedTextColor: ShadTheme.of(context).colorScheme.cardForeground,
-                                widthSwitch: widget.widthSwitch,
-                                minimize: _minimize,
-                                height: sideBarItemHeight,
-                                hoverColor: ShadTheme.of(context).colorScheme.selection,
-                                splashColor: ShadTheme.of(context).colorScheme.background,
-                                highlightColor: ShadTheme.of(context).colorScheme.background,
-                                width: _width,
-                                icon: widget.sidebarItems[index].iconUnselected ?? widget.sidebarItems[index].iconSelected,
-                                text: widget.sidebarItems[index].text,
-                                onTap: () => moveToNewIndex(index));
-                          },
-                          separatorBuilder: (context, index) {
-                            if (index == widget.sidebarItems.length - 2 && widget.settingsDivider) {
-                              return Divider(
-                                height: 12,
-                                thickness: 0.2,
-                                color: ShadTheme.of(context).colorScheme.background.withOpacity(0.80),
-                              );
-                            } else {
-                              return const SizedBox(
-                                height: 8,
-                              );
-                            }
-                          },
-                          itemCount: widget.sidebarItems.length,
-                        ),
-                      ],
+                    child: ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return sideBarItem(
+                            textStyle: ShadTheme.of(context).textTheme.table,
+                            unSelectedIconColor: ShadTheme.of(context).colorScheme.foreground,
+                            unSelectedTextColor: ShadTheme.of(context).colorScheme.cardForeground,
+                            widthSwitch: widget.widthSwitch,
+                            minimize: _minimize,
+                            height: sideBarItemHeight,
+                            hoverColor: ShadTheme.of(context).colorScheme.selection,
+                            splashColor: ShadTheme.of(context).colorScheme.background,
+                            highlightColor: ShadTheme.of(context).colorScheme.background,
+                            width: _width,
+                            icon: widget.sidebarItems[index].iconUnselected ?? widget.sidebarItems[index].iconSelected,
+                            text: widget.sidebarItems[index].text,
+                            onTap: () => moveToNewIndex(index),
+                            isSelected: index == itemIndex); // Change color based on selection
+                      },
+                      separatorBuilder: (context, index) {
+                        if (index == widget.sidebarItems.length - 2 && widget.settingsDivider) {
+                          return Divider(
+                            height: 12,
+                            thickness: 0.2,
+                            color: ShadTheme.of(context).colorScheme.background.withOpacity(0.80),
+                          );
+                        } else {
+                          return const SizedBox(
+                            height: 8,
+                          );
+                        }
+                      },
+                      itemCount: widget.sidebarItems.length,
                     ),
                   ),
                 ],
               ),
             ),
           ),
+          // Minimize button
           if (_width >= widget.widthSwitch)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
@@ -159,8 +158,6 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
   }
 }
 
-/// Sidebar model Widget the we used it inside the ListView with inkwell to make each item clickable
-
 Widget sideBarItem({
   required IconData icon,
   required String text,
@@ -175,6 +172,7 @@ Widget sideBarItem({
   required Color unSelectedTextColor,
   required Function() onTap,
   required TextStyle textStyle,
+  required bool isSelected,
 }) {
   return Material(
     color: Colors.transparent,
@@ -185,13 +183,11 @@ Widget sideBarItem({
       hoverColor: hoverColor,
       splashColor: splashColor,
       highlightColor: highlightColor,
-      child: SizedBox(
+      child: Container(
+        color: isSelected ? Colors.grey : Colors.transparent, // Highlight if selected
         height: height,
-        child: ListView(
-          padding: const EdgeInsets.all(12),
-          shrinkWrap: true,
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.all(12),
+        child: Row(
           children: [
             Icon(
               icon,
@@ -214,13 +210,11 @@ Widget sideBarItem({
   );
 }
 
-///Sidebar model contains two icon data and string for the text main Icon can't be null but unselected icon can be null and in this case it will be the main Icon
-
-/// Sidebar model
 class SideBarItem {
   final IconData iconSelected;
   final IconData? iconUnselected;
   final String text;
+  bool isSelected = false; // Add this property
 
   SideBarItem({
     required this.iconSelected,
