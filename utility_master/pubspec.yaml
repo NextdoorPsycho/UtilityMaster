@@ -1,0 +1,107 @@
+name: utility_master
+description: "My Utility Master Project"
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  #Dans dependencies // Cancer
+  toxic: ^1.2.4
+  padded: ^1.0.1
+  flyout: ^1.0.2
+  throttled: ^1.0.1
+#  fire_crud: ^1.1.8 # Firebase CRUD
+#  collection_walker: ^1.1.1 # Firebase CRUD
+  dialoger: ^1.0.0
+  fast_log: ^1.0.7
+
+  # Firebase - Specific dependencies
+#  firebase_storage: ^11.6.0
+#  firebase_core: ^2.24.2
+#  firebase_ui_auth: ^1.13.0
+#  firebase_auth: ^4.16.0
+#  cloud_firestore: ^4.15.8
+
+  # UI - Specific dependencies
+  loading_animation_widget: ^1.2.1
+  carousel_slider: ^4.2.1
+  pandabar: ^0.1.2
+  flutter_launcher_icons: ^0.13.1
+  toastification: ^2.0.0
+  animated_text_kit: ^4.2.2
+  shadcn_ui: ^0.4.6
+
+  # Data - Specific dependencies
+  universal_io: ^2.2.2
+  path_provider: ^2.1.3
+  provider: ^6.1.2
+  path: ^1.9.0
+  async: ^2.11.0
+  uuid: ^4.4.0
+  dart_mappable: ^4.2.2
+  shared_preferences: ^2.2.3
+  build_runner: ^2.4.9
+
+  # Misc - Unspecific dependencies
+  image: ^4.1.7
+  url_launcher: ^6.2.6
+  app_rename: ^0.0.1  # flutter pub run app_rename:main all="somename"
+  image_picker: ^1.1.1
+  restart_app: ^1.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  dependency_validator: ^4.0.0
+  dart_mappable_builder: ^4.2.3
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/icon.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/icon.png"
+    background_color: "#000000"
+    theme_color: "#ffffff"
+  windows:
+    generate: true
+    image_path: "assets/images/icon.png"
+    icon_size: 256 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/icon.png"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/ding.mp3
+  fonts:
+    - family: itc
+      fonts:
+        - asset: "fonts/ITC Avant Garde Gothic Medium.otf"
+    - family: akz
+      fonts:
+        - asset: "fonts/Berthold-akzidenz-grotesk-be-regular.ttf"
+
+scripts:
+  deploy-web: cd .. && firebase deploy --only hosting
+  build-runner: flutter pub run build_runner build --delete-conflicting-outputs
+  measure_android_size: flutter build apk --analyze-size --target-platform android-arm64
+  android_signatures:
+    script: ./gradlew signingReport
+    directory: android
+  build_appbundle_release: flutter build appbundle --release
+  build_apk_release: flutter build apk --release
+  validate_dependencies: flutter pub run dependency_valida
