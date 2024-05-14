@@ -57,7 +57,6 @@ class _LandingPageState extends State<LandingPage> {
               SideBarItem(iconSelected: Icons.home, text: 'Home'),
               SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
               SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
-              SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
             ],
             widthSwitch: 900, // This is an example breakpoint for a responsive layout
           ),

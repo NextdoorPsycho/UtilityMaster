@@ -41,11 +41,6 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
     super.initState();
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
   void moveToNewIndex(int index) {
     setState(() {
       itemIndex = index;
@@ -95,7 +90,7 @@ class _UMSidebarState extends State<UMSidebar> with SingleTickerProviderStateMix
               child: Column(
                 children: [
                   SizedBox(
-                    height: 786.0,
+                    height: _height - 300,
                     child: ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
