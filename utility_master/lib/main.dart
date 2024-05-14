@@ -9,6 +9,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:universal_io/io.dart';
 import 'package:utility_master/pages/home/home.dart';
 import 'package:utility_master/theme/shad_dark.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'data/admin/app_user_restricted.dart';
 import 'data/crud.dart';
@@ -20,6 +21,23 @@ String get u => FirebaseAuth.instance.currentUser!.uid;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // Must add this line.
+  await windowManager.ensureInitialized();
+
+  WindowOptions windowOptions = const WindowOptions(
+    size: Size(1600, 900),
+    center: true,
+    backgroundColor: Colors.transparent,
+    skipTaskbar: false,
+    title: "Utility Master",
+    windowButtonVisibility: true,
+    titleBarStyle: TitleBarStyle.normal,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   if (kIsWeb || Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,

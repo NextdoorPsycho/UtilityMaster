@@ -97,12 +97,17 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             AnimatedTextKit(
               animatedTexts: [
                 TypewriterAnimatedText(
-                  cursor: '|',
-                  'Change Everything',
-                  textAlign: TextAlign.left,
-                  textStyle: ShadTheme.of(context).textTheme.lead,
-                  speed: const Duration(milliseconds: 50),
-                ),
+                    cursor: '|',
+                    'Change Everything',
+                    textAlign: TextAlign.center,
+                    speed: const Duration(milliseconds: 60),
+                    textStyle: TextStyle(
+                      fontSize: ShadTheme.of(context).textTheme.lead.fontSize,
+                      fontWeight: ShadTheme.of(context).textTheme.lead.fontWeight,
+                      letterSpacing: ShadTheme.of(context).textTheme.lead.letterSpacing,
+                      // make color a hexcode
+                      color: Colors.grey,
+                    )),
               ],
               totalRepeatCount: 1,
               pause: const Duration(milliseconds: 1000),
