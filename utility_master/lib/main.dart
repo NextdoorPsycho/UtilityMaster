@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:universal_io/io.dart';
 import 'package:utility_master/pages/home/home.dart';
+import 'package:utility_master/pages/page_landing.dart';
 import 'package:utility_master/theme/shad_dark.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -21,7 +22,6 @@ String get u => FirebaseAuth.instance.currentUser!.uid;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // Must add this line.
   await windowManager.ensureInitialized();
 
   WindowOptions windowOptions = const WindowOptions(
@@ -30,8 +30,7 @@ void main() async {
     backgroundColor: Colors.transparent,
     skipTaskbar: false,
     title: "Utility Master",
-    windowButtonVisibility: true,
-    titleBarStyle: TitleBarStyle.normal,
+    alwaysOnTop: false,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();
@@ -66,16 +65,16 @@ class _MyAppState extends State<MyApp> {
           debugShowCheckedModeBanner: false,
           materialThemeBuilder: (context, theme) {
             return theme.copyWith(
-              appBarTheme: const AppBarTheme(toolbarHeight: 52),
+              appBarTheme: const AppBarTheme(toolbarHeight: 5),
             );
           },
           darkTheme: ShadThemeData(
-            brightness: Brightness.dark,
-            colorScheme: const MonochromeShadSlateColorScheme.dark(),
+            brightness: Brightness.light,
+            colorScheme: const MonochromeShadSlateColorScheme.light(),
           ),
           home: snapshot.hasData ? _buildMainApp() : _buildSignInScreen(),
           themeMode: _themeMode,
-          theme: _themeMode == ThemeMode.dark
+          theme: _themeMode != ThemeMode.dark
               ? ShadThemeData(
                   brightness: Brightness.dark,
                   colorScheme: const MonochromeShadSlateColorScheme.dark(),
@@ -144,7 +143,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   Widget _buildMainApp() {
-    return const Home();
+    return LandingPage();
   }
 }
 
