@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
+import 'package:utility_master/theme/widgets/ticking_icon.dart';
 
 ///ignore: must_be_immutable
 class UMSidebar extends StatefulWidget {
@@ -111,7 +112,10 @@ class _UMSidebarState extends State<UMSidebar>
                   )
                 : const Row(
                     children: [
-                      Icon(Icons.hexagon_outlined, size: 50),
+                      TickingIcon(
+                        icon: Icons.hexagon_outlined,
+                        size: 50.0,
+                      ),
                     ],
                   ),
           ),

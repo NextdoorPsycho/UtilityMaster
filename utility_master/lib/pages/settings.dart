@@ -302,7 +302,7 @@ class _SettingsMeatState extends State<_SettingsMeat> {
             keyboardType: TextInputType.emailAddress,
           ),
         ),
-        PasswordInput(),
+        const PasswordInput(),
         ShadInputFormField(
           id: 'username',
           label: const Text('Username'),
@@ -327,7 +327,7 @@ class _SettingsMeatState extends State<_SettingsMeat> {
           ),
           child: const ShadProgress(),
         ),
-        ShadRadioGroup<String>(
+        const ShadRadioGroup<String>(
           items: [
             ShadRadio(
               label: Text('Default'),
@@ -468,7 +468,7 @@ class _SettingsMeatState extends State<_SettingsMeat> {
                 ),
               ],
             ),
-            ShadSlider(
+            const ShadSlider(
               initialValue: 33,
               max: 100,
             ),
