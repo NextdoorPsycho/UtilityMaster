@@ -35,6 +35,29 @@ class UserSettings with UserSettingsMappable {
     }
   }
 
+  WindowEffect get windowEffectEnum {
+    switch (windowEffect) {
+      case WindowEffect.transparent:
+        return WindowEffect.transparent;
+      case WindowEffect.disabled:
+        return WindowEffect.disabled;
+      case WindowEffect.solid:
+        return WindowEffect.solid;
+      case WindowEffect.aero:
+        return WindowEffect.aero;
+      case WindowEffect.acrylic:
+        return WindowEffect.acrylic;
+      case WindowEffect.mica:
+        return WindowEffect.mica;
+      default:
+        return WindowEffect.solid;
+    }
+  }
+
+  double get appOpacityRounded {
+    return (appOpacity * 100).round() / 100;
+  }
+
   void setThemeMode(ThemeMode mode) {
     themeMode = mode.name;
   }

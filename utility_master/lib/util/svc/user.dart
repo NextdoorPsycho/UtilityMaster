@@ -72,7 +72,7 @@ class UserService extends StatelessService {
           lastUserSettings = event;
           themeMode.add(lastUserSettings.themeModeEnum);
           themeOpacity.add(lastUserSettings.appOpacity);
-          windowEffect.add(lastUserSettings.windowEffect);
+          windowEffect.add(lastUserSettings.windowEffectEnum);
           verbose("Got last user settings");
         }),
       ];
