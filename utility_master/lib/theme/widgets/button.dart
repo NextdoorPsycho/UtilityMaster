@@ -1,9 +1,11 @@
+import 'package:fast_log/fast_log.dart';
 import 'package:flutter/material.dart';
 import 'package:serviced/serviced.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/util/magic.dart';
 import 'package:utility_master/util/svc/login.dart';
+import 'package:utility_master/util/svc/user.dart';
 
 class UMB {
   static Widget themeToggle(BuildContext context) {
@@ -12,7 +14,16 @@ class UMB {
       children: [
         ShadButton(
           onPressed: () {
-            Crud.userSettings(u).txn("settings", (s) => s..toggleTheme());
+            info("Toggled Theme");
+            // Crud.userSettings(u).txn("settings", (s) => s..toggleTheme());
+
+            Crud.userSettings(u).update("settings", {
+              "themeMode":
+                  (svc<UserService>().lastUserSettings..toggleTheme()).themeMode
+            });
+
+            // Crud.userSettings(u).set(
+            //     "settings", svc<UserService>().lastUserSettings..toggleTheme());
           },
           icon: Text(
             'Toggle Theme',

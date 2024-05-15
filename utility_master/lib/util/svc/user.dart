@@ -71,6 +71,8 @@ class UserService extends StatelessService {
         Crud.userSettings(uid).stream("settings").listen((event) {
           lastUserSettings = event;
           themeMode.add(lastUserSettings.themeModeEnum);
+          themeOpacity.add(lastUserSettings.appOpacity);
+          windowEffect.add(lastUserSettings.windowEffect);
           verbose("Got last user settings");
         }),
       ];

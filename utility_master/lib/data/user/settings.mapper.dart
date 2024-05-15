@@ -23,6 +23,12 @@ class UserSettingsMapper extends ClassMapperBase<UserSettings> {
   static String _$themeMode(UserSettings v) => v.themeMode;
   static const Field<UserSettings, String> _f$themeMode =
       Field('themeMode', _$themeMode, opt: true, def: "dark");
+  static WindowEffect _$windowEffect(UserSettings v) => v.windowEffect;
+  static const Field<UserSettings, WindowEffect> _f$windowEffect =
+      Field('windowEffect', _$windowEffect, opt: true, def: WindowEffect.solid);
+  static double _$appOpacity(UserSettings v) => v.appOpacity;
+  static const Field<UserSettings, double> _f$appOpacity =
+      Field('appOpacity', _$appOpacity, opt: true, def: 1.0);
   static String? _$uid(UserSettings v) => v.uid;
   static const Field<UserSettings, String> _f$uid =
       Field('uid', _$uid, mode: FieldMode.member);
@@ -33,12 +39,17 @@ class UserSettingsMapper extends ClassMapperBase<UserSettings> {
   @override
   final MappableFields<UserSettings> fields = const {
     #themeMode: _f$themeMode,
+    #windowEffect: _f$windowEffect,
+    #appOpacity: _f$appOpacity,
     #uid: _f$uid,
     #exists: _f$exists,
   };
 
   static UserSettings _instantiate(DecodingData data) {
-    return UserSettings(themeMode: data.dec(_f$themeMode));
+    return UserSettings(
+        themeMode: data.dec(_f$themeMode),
+        windowEffect: data.dec(_f$windowEffect),
+        appOpacity: data.dec(_f$appOpacity));
   }
 
   @override
@@ -93,7 +104,7 @@ extension UserSettingsValueCopy<$R, $Out>
 
 abstract class UserSettingsCopyWith<$R, $In extends UserSettings, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? themeMode});
+  $R call({String? themeMode, WindowEffect? windowEffect, double? appOpacity});
   UserSettingsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -106,11 +117,20 @@ class _UserSettingsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<UserSettings> $mapper =
       UserSettingsMapper.ensureInitialized();
   @override
-  $R call({String? themeMode}) =>
-      $apply(FieldCopyWithData({if (themeMode != null) #themeMode: themeMode}));
+  $R call(
+          {String? themeMode,
+          WindowEffect? windowEffect,
+          double? appOpacity}) =>
+      $apply(FieldCopyWithData({
+        if (themeMode != null) #themeMode: themeMode,
+        if (windowEffect != null) #windowEffect: windowEffect,
+        if (appOpacity != null) #appOpacity: appOpacity
+      }));
   @override
-  UserSettings $make(CopyWithData data) =>
-      UserSettings(themeMode: data.get(#themeMode, or: $value.themeMode));
+  UserSettings $make(CopyWithData data) => UserSettings(
+      themeMode: data.get(#themeMode, or: $value.themeMode),
+      windowEffect: data.get(#windowEffect, or: $value.windowEffect),
+      appOpacity: data.get(#appOpacity, or: $value.appOpacity));
 
   @override
   UserSettingsCopyWith<$R2, UserSettings, $Out2> $chain<$R2, $Out2>(

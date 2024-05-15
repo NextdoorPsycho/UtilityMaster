@@ -1,34 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:utility_master/pages/home.dart';
+import 'package:utility_master/pages/settings.dart';
 import 'package:utility_master/theme/widgets/sidebar.dart';
-
-// Define the pages you will navigate to
-class PageOne extends StatelessWidget {
-  static void open(BuildContext context) => context.go("/page1");
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Page One'));
-  }
-}
-
-class PageTwo extends StatelessWidget {
-  static void open(BuildContext context) => context.go("/page2");
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Page Two'));
-  }
-}
-
-class PageThree extends StatelessWidget {
-  static void open(BuildContext context) => context.go("/page3");
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Page Three'));
-  }
-}
 
 // LandingPage with Sidebar
 class LandingPage extends StatefulWidget {
@@ -45,9 +19,7 @@ class _LandingPageState extends State<LandingPage> {
   final List<Widget> _pages = [
     const Home(),
     const Home(),
-    PageTwo(),
-    PageThree(),
-    const Home(),
+    const SettingsPage(),
   ];
 
   @override
@@ -63,8 +35,8 @@ class _LandingPageState extends State<LandingPage> {
             },
             sidebarItems: [
               SideBarItem(iconSelected: Icons.home, text: 'Home'),
-              SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
               SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
+              SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
             ],
             widthSwitch:
                 900, // This is an example breakpoint for a responsive layout
