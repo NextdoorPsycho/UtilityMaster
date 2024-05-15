@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:utility_master/pages/home.dart';
-import 'package:utility_master/theme/widgets/um_unified/um_sidebar.dart';
+import 'package:utility_master/theme/widgets/generic/sidebar.dart';
 
 // Define the pages you will navigate to
 class PageOne extends StatelessWidget {

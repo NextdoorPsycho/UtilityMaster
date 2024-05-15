@@ -2,8 +2,7 @@ import 'package:fast_log/fast_log.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serviced/serviced.dart';
-
-import 'bloc/bloc_login.dart';
+import 'package:utility_master/util/bloc/login.dart';
 
 class BlocService extends StatelessService {
   Iterable<BlocProvider> onRegisterProviders() sync* {

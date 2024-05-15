@@ -2,10 +2,10 @@ import 'package:fast_log/fast_log.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:serviced/serviced.dart';
-import 'package:utility_master/pages/page_landing.dart';
-import 'package:utility_master/pages/page_login.dart';
-import 'package:utility_master/util/svc/service_login.dart';
-import 'package:utility_master/util/svc/service_user.dart';
+import 'package:utility_master/pages/app_landing.dart';
+import 'package:utility_master/pages/login/page_login.dart';
+import 'package:utility_master/util/svc/login.dart';
+import 'package:utility_master/util/svc/user.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

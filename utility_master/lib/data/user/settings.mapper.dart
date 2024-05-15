@@ -4,7 +4,7 @@
 // ignore_for_file: unused_element, unnecessary_cast, override_on_non_overriding_member
 // ignore_for_file: strict_raw_type, inference_failure_on_untyped_parameter
 
-part of 'user_settings.dart';
+part of 'settings.dart';
 
 class UserSettingsMapper extends ClassMapperBase<UserSettings> {
   UserSettingsMapper._();
@@ -22,7 +22,7 @@ class UserSettingsMapper extends ClassMapperBase<UserSettings> {
 
   static String _$themeMode(UserSettings v) => v.themeMode;
   static const Field<UserSettings, String> _f$themeMode =
-      Field('themeMode', _$themeMode, opt: true, def: "system");
+      Field('themeMode', _$themeMode, opt: true, def: "dark");
   static String? _$uid(UserSettings v) => v.uid;
   static const Field<UserSettings, String> _f$uid =
       Field('uid', _$uid, mode: FieldMode.member);

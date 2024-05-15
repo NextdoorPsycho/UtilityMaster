@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:utility_master/theme/widgets/um_unified/um_button.dart';
-import 'package:utility_master/theme/widgets/um_unified/um_text.dart';
+import 'package:utility_master/theme/widgets/generic/button.dart';
+import 'package:utility_master/theme/widgets/generic/text.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

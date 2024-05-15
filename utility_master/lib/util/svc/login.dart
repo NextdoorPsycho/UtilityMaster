@@ -13,8 +13,8 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:serviced/serviced.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:universal_io/io.dart';
-import 'package:utility_master/pages/page_login.dart';
-import 'package:utility_master/util/svc/service_user.dart';
+import 'package:utility_master/pages/login/page_login.dart';
+import 'package:utility_master/util/svc/user.dart';
 
 class LoginService extends StatelessService {
   bool isSignedIn() => FirebaseAuth.instance.currentUser != null;
@@ -29,7 +29,7 @@ class LoginService extends StatelessService {
       context: context,
       title: "Log Out?",
       description:
-          "Are you sure you want to log out of your account? You will need to log in again before you can use Crucible again.",
+          "Are you sure you want to log out of your account? You will need to log in again before you can use Utility Master again.",
       confirmButtonText: "Log Out",
       onConfirm: (context) =>
           signOut().then((value) => LoginScreen.open(context)));

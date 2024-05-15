@@ -1,8 +1,8 @@
 import 'package:fast_log/fast_log.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serviced/serviced.dart';
-import 'package:utility_master/util/svc/service_login.dart';
-import 'package:utility_master/util/svc/service_user.dart';
+import 'package:utility_master/util/svc/login.dart';
+import 'package:utility_master/util/svc/user.dart';
 
 class LoginEvent {}
 

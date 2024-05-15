@@ -1,6 +1,6 @@
 import 'package:dart_mappable/dart_mappable.dart';
 
-part 'user_capabilities.mapper.dart';
+part 'capabilities.mapper.dart';
 
 // We need to tell mappable what types this is a superclass of for it to work
 @MappableClass()

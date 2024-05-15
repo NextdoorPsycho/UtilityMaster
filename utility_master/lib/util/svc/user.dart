@@ -7,10 +7,11 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:precision_stopwatch/precision_stopwatch.dart';
 import 'package:serviced/serviced.dart';
-import 'package:utility_master/data/crud.dart';
+import 'package:utility_master/data/crud/crud.dart';
+import 'package:utility_master/data/user/capabilities.dart';
+import 'package:utility_master/data/user/settings.dart';
 import 'package:utility_master/data/user/user.dart';
-import 'package:utility_master/data/user/user_capabilities.dart';
-import 'package:utility_master/data/user/user_settings.dart';
+import 'package:utility_master/main.dart';
 
 typedef ArcaneUserData = Map<String, dynamic>;
 
@@ -47,7 +48,8 @@ class UserService extends StatelessService {
 
     verbose("Binding user service for $uid");
     try {
-      await FirebaseAnalytics.instance.setUserId(id: uid, callOptions: AnalyticsCallOptions(global: true));
+      await FirebaseAnalytics.instance
+          .setUserId(id: uid, callOptions: AnalyticsCallOptions(global: true));
       verbose("Bound Analytics");
     } catch (e) {
       warn("Analytics is not supported on this platform yet.");
@@ -63,9 +65,12 @@ class UserService extends StatelessService {
       verbose("Got all init data in ${p.getMilliseconds()}");
       List<StreamSubscription> subs = [
         Crud.user().stream(uid).listen((event) => lastUser = event),
-        Crud.userCapabilities(uid).stream("capabilities").listen((event) => lastUserCapabilities = event),
+        Crud.userCapabilities(uid)
+            .stream("capabilities")
+            .listen((event) => lastUserCapabilities = event),
         Crud.userSettings(uid).stream("settings").listen((event) {
           lastUserSettings = event;
+          themeMode.add(lastUserSettings.themeModeEnum);
           verbose("Got last user settings");
         }),
       ];
@@ -79,12 +84,19 @@ class UserService extends StatelessService {
   String uid() => auth.FirebaseAuth.instance.currentUser!.uid;
 
   Future<void> _ensureUser(String uid) async {
-    DocumentSnapshot<Map<String, dynamic>> snap = await Crud.user().collection.doc(uid).get();
+    DocumentSnapshot<Map<String, dynamic>> snap =
+        await Crud.user().collection.doc(uid).get();
 
     if (!snap.exists) {
       lastUser = User(
-        firstName: _grabFirstName ?? auth.FirebaseAuth.instance.currentUser!.displayName!.split(" ").first,
-        lastName: _grabLastName ?? auth.FirebaseAuth.instance.currentUser!.displayName!.split(" ").last,
+        firstName: _grabFirstName ??
+            auth.FirebaseAuth.instance.currentUser!.displayName!
+                .split(" ")
+                .first,
+        lastName: _grabLastName ??
+            auth.FirebaseAuth.instance.currentUser!.displayName!
+                .split(" ")
+                .last,
         email: auth.FirebaseAuth.instance.currentUser!.email!,
       );
       await Crud.user().collection.doc(uid).set(lastUser.toMap());
@@ -94,14 +106,18 @@ class UserService extends StatelessService {
   }
 
   Future<void> _ensureUserCapabilities(String uid) async {
-    DocumentSnapshot<Map<String, dynamic>> snap = await Crud.userCapabilities(uid).collection.doc("capabilities").get();
+    DocumentSnapshot<Map<String, dynamic>> snap =
+        await Crud.userCapabilities(uid).collection.doc("capabilities").get();
 
     if (!snap.exists) {
       lastUserCapabilities = UserCapabilities(
         admin: false,
       );
       try {
-        await Crud.userCapabilities(uid).collection.doc("capabilities").set(lastUserCapabilities.toMap());
+        await Crud.userCapabilities(uid)
+            .collection
+            .doc("capabilities")
+            .set(lastUserCapabilities.toMap());
       } catch (e) {
         error("Failed to set user capabilities");
         error(e);
@@ -112,13 +128,17 @@ class UserService extends StatelessService {
   }
 
   Future<void> _ensureUserSettings(String uid) async {
-    DocumentSnapshot<Map<String, dynamic>> snap = await Crud.userSettings(uid).collection.doc("settings").get();
+    DocumentSnapshot<Map<String, dynamic>> snap =
+        await Crud.userSettings(uid).collection.doc("settings").get();
 
     if (!snap.exists) {
       lastUserSettings = UserSettings(
         themeMode: ThemeMode.system.name,
       );
-      await Crud.userSettings(uid).collection.doc("settings").set(lastUserSettings.toMap());
+      await Crud.userSettings(uid)
+          .collection
+          .doc("settings")
+          .set(lastUserSettings.toMap());
     } else {
       lastUserSettings = UserSettingsMapper.fromMap(snap.data()!);
     }

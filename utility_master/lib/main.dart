@@ -6,21 +6,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:rxdart/rxdart.dart';
 import 'package:serviced/serviced.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:toxic/toxic.dart';
 import 'package:universal_io/io.dart';
-import 'package:utility_master/pages/page_landing.dart';
-import 'package:utility_master/pages/page_login.dart';
-import 'package:utility_master/pages/screen_spalsh.dart';
+import 'package:utility_master/pages/app_landing.dart';
+import 'package:utility_master/pages/login/page_login.dart';
+import 'package:utility_master/pages/login/screen_spalsh.dart';
 import 'package:utility_master/theme/shad_dark.dart';
 import 'package:utility_master/theme/widgets/title_bar.dart';
-import 'package:utility_master/util/svc/service_bloc.dart';
-import 'package:utility_master/util/svc/service_firebase_service.dart';
-import 'package:utility_master/util/svc/service_logging.dart';
-import 'package:utility_master/util/svc/service_login.dart';
-import 'package:utility_master/util/svc/service_user.dart';
-import 'package:utility_master/util/svc/service_widget_binding.dart';
+import 'package:utility_master/util/bloc/bloc.dart';
+import 'package:utility_master/util/svc/firebase.dart';
+import 'package:utility_master/util/svc/logging.dart';
+import 'package:utility_master/util/svc/login.dart';
+import 'package:utility_master/util/svc/user.dart';
+import 'package:utility_master/util/svc/widget_binding.dart';
 import 'package:window_manager/window_manager.dart';
 
 String get u {
@@ -70,6 +71,8 @@ Future<void> _registerServices() async {
   await services().waitForStartup();
 }
 
+BehaviorSubject<ThemeMode> themeMode = BehaviorSubject.seeded(ThemeMode.system);
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -96,24 +99,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) => injectTitleBar(MultiBlocProvider(
       providers: svc<BlocService>().onRegisterProviders().toList(),
-      child: ShadApp.materialRouter(
-        debugShowCheckedModeBanner: false,
-        themeMode: ThemeMode.light,
-        darkTheme: ShadThemeData(
-          brightness: Brightness.dark,
-          colorScheme: MonochromeShadSlateColorScheme.dark(
-            background: Colors.black.withOpacity(0.95),
-          ),
-        ),
-        theme: ShadThemeData(
-          brightness: Brightness.light,
-          colorScheme: MonochromeShadSlateColorScheme.light(
-            background: Colors.white.withOpacity(0.95),
-          ),
-        ),
-        title: "Utility Master",
-        routerConfig: router,
-      )));
+      child: themeMode.buildNullable((t) => ShadApp.materialRouter(
+            debugShowCheckedModeBanner: false,
+            themeMode: t ?? ThemeMode.system,
+            darkTheme: ShadThemeData(
+              brightness: Brightness.dark,
+              colorScheme: MonochromeShadSlateColorScheme.dark(
+                background: Colors.black.withOpacity(0.95),
+              ),
+            ),
+            theme: ShadThemeData(
+              brightness: Brightness.light,
+              colorScheme: MonochromeShadSlateColorScheme.light(
+                background: Colors.white.withOpacity(0.95),
+              ),
+            ),
+            title: "Utility Master",
+            routerConfig: router,
+          ))));
 }
 
 final GoRouter router = GoRouter(

@@ -1,9 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:serviced/serviced.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:utility_master/data/crud.dart';
+import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/main.dart';
+import 'package:utility_master/util/svc/login.dart';
 
 class UMB {
   static Widget themeToggle(BuildContext context) {
@@ -29,7 +29,7 @@ class UMB {
       children: [
         ShadButton.destructive(
           onPressed: () {
-            _SignOutManager.signOut(context);
+            svc<LoginService>().signOutDialog(context);
           },
           icon: Text(
             'Sign Out',
@@ -37,17 +37,6 @@ class UMB {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _SignOutManager {
-  static void signOut(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    // Forcibly reload the app or clear navigation stack
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
-      (Route<dynamic> route) => false,
     );
   }
 }

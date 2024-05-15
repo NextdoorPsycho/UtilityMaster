@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:utility_master/pages/page_landing.dart';
-import 'package:utility_master/util/login/login_content.dart';
-import 'package:utility_master/util/svc/bloc/bloc_login.dart';
+import 'package:utility_master/pages/app_landing.dart';
+import 'package:utility_master/pages/login/login_content.dart';
+import 'package:utility_master/util/bloc/login.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
