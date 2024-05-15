@@ -6,7 +6,7 @@ import 'package:utility_master/pages/app_landing.dart';
 import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/pages/login/page_login.dart';
 import 'package:utility_master/pages/login/screen_spalsh.dart';
-import 'package:utility_master/pages/settings.dart';
+import 'package:utility_master/pages/showcase.dart';
 import 'package:utility_master/util/svc/login.dart';
 import 'package:utility_master/util/svc/user.dart';
 import 'package:utility_master/util/svc/widget_binding.dart';
@@ -18,7 +18,7 @@ final GoRouter router = GoRouter(
     _r("/", LandingPage(), routes: [
       _r("home1", Home()),
       _r("home2", Home()),
-      _r("settings", SettingsPage()),
+      _r("settings", ShowcasePage()),
     ]),
     _r("/splash", const SplashScreen()),
     _r("/login", const LoginScreen()),

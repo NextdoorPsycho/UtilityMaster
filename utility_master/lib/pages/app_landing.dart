@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/pages/settings.dart';
+import 'package:utility_master/pages/showcase.dart';
 import 'package:utility_master/theme/widgets/sidebar.dart';
 
 // LandingPage with Sidebar
@@ -18,7 +19,7 @@ class _LandingPageState extends State<LandingPage> {
   // Pages for navigation
   final List<Widget> _pages = [
     const Home(),
-    const Home(),
+    const ShowcasePage(),
     const SettingsPage(),
   ];
 
@@ -35,7 +36,7 @@ class _LandingPageState extends State<LandingPage> {
             },
             sidebarItems: [
               SideBarItem(iconSelected: Icons.home, text: 'Home'),
-              SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
+              SideBarItem(iconSelected: Icons.build, text: 'Showcase'),
               SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
             ],
             widthSwitch:
