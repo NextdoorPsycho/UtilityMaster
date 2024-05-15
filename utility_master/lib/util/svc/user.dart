@@ -11,7 +11,7 @@ import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/data/user/capabilities.dart';
 import 'package:utility_master/data/user/settings.dart';
 import 'package:utility_master/data/user/user.dart';
-import 'package:utility_master/main.dart';
+import 'package:utility_master/util/magic.dart';
 
 typedef ArcaneUserData = Map<String, dynamic>;
 
@@ -118,10 +118,7 @@ class UserService extends StatelessService {
             .collection
             .doc("capabilities")
             .set(lastUserCapabilities.toMap());
-      } catch (e) {
-        error("Failed to set user capabilities");
-        error(e);
-      }
+      } catch (e) {}
     } else {
       lastUserCapabilities = UserCapabilitiesMapper.fromMap(snap.data()!);
     }

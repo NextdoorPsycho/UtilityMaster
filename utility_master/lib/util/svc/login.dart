@@ -12,8 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:serviced/serviced.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:toxic/extensions/future.dart';
 import 'package:universal_io/io.dart';
 import 'package:utility_master/pages/login/page_login.dart';
+import 'package:utility_master/util/svc/hive.dart';
 import 'package:utility_master/util/svc/user.dart';
 
 class LoginService extends StatelessService {
@@ -31,8 +33,13 @@ class LoginService extends StatelessService {
       description:
           "Are you sure you want to log out of your account? You will need to log in again before you can use Utility Master again.",
       confirmButtonText: "Log Out",
-      onConfirm: (context) =>
-          signOut().then((value) => LoginScreen.open(context)));
+      onConfirm: (context) async {
+        try {
+          await signOut();
+        } catch (e) {}
+
+        LoginScreen.open(context);
+      });
 
   String? extractFirstName(User user) {
     List<String> dns = getPotentialExtractionNames(user);
@@ -102,7 +109,107 @@ class LoginService extends StatelessService {
     return c;
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<bool> attemptAutoSignIn() async {
+    if (!kIsWeb && Platform.isWindows && await hasAuthToken()) {
+      verbose("Attempting Auto Sign In with Google on Windows");
+      try {
+        await signInWithGoogle(retry: false);
+
+        if (isSignedIn()) {
+          await svc<UserService>().bind(svc<UserService>().uid());
+          return true;
+        } else {
+          await clearAuthToken();
+        }
+      } catch (e, es) {
+        error("Failed to auto sign in with Google");
+        error(e);
+        error(es);
+      }
+    }
+
+    return false;
+  }
+
+  Future<void> saveAuthToken(AuthResult r) async {
+    await svc<HiveService>().dataBox.put("at", r.accessToken);
+    await svc<HiveService>().dataBox.put("it", r.idToken);
+    await svc<HiveService>().dataBox.put("ts", r.tokenSecret);
+    verbose("Saved Auth Token");
+  }
+
+  Future<void> clearAuthToken() async {
+    await svc<HiveService>().dataBox.delete("at");
+    await svc<HiveService>().dataBox.delete("it");
+    await svc<HiveService>().dataBox.delete("ts");
+    verbose("Cleared Auth Token");
+  }
+
+  Future<bool> hasAuthToken() =>
+      Future.value(svc<HiveService>().dataBox.get("at") != null);
+
+  Future<AuthResult> loadAuthToken() => Future.value(AuthResult(
+        accessToken: svc<HiveService>().dataBox.get("at"),
+        idToken: svc<HiveService>().dataBox.get("it"),
+        tokenSecret: svc<HiveService>().dataBox.get("ts"),
+      ));
+
+  Future<AuthResult?> openGoogleSignInPopupWindows() =>
+      DesktopWebviewAuth.signIn(GoogleSignInArgs(
+          clientId:
+              '809958656651-ta9g3u2ea0qh34uq78oclk0b0b44tct1.apps.googleusercontent.com',
+          redirectUri:
+              'https://arcaneutilitymaster.firebaseapp.com/__/auth/handler',
+          scope: 'email'));
+
+  Future<UserCredential> signInWithGoogleWindows({bool retry = true}) async {
+    if (await hasAuthToken()) {
+      try {
+        verbose("Logging in with GSToken on Windows using saved token");
+        final OAuthCredential at = GoogleAuthProvider.credential(
+            accessToken: (await loadAuthToken()).accessToken);
+        return await FirebaseAuth.instance.signInWithCredential(AuthCredential(
+          providerId: at.providerId,
+          signInMethod: at.signInMethod,
+          accessToken: at.accessToken,
+          token: at.token,
+        ));
+      } catch (e, es) {
+        error("Looks like our saved credentials are invalid!");
+        warn(e);
+        warn(es);
+        await clearAuthToken();
+
+        if (retry) {
+          return signInWithGoogleWindows();
+        } else {
+          rethrow;
+        }
+      }
+    } else {
+      try {
+        verbose("Logging in with GSToken on Windows with popup");
+        final AuthResult ar = (await openGoogleSignInPopupWindows())!;
+        final OAuthCredential at =
+            GoogleAuthProvider.credential(accessToken: ar.accessToken);
+        return await FirebaseAuth.instance
+            .signInWithCredential(AuthCredential(
+              providerId: at.providerId,
+              signInMethod: at.signInMethod,
+              accessToken: at.accessToken,
+              token: at.token,
+            ))
+            .thenRun((_) => saveAuthToken(ar));
+      } catch (e, es) {
+        error("Failed to sign in with Google!");
+        error(e);
+        error(es);
+        rethrow;
+      }
+    }
+  }
+
+  Future<UserCredential> signInWithGoogle({bool retry = true}) async {
     late UserCredential c;
 
     try {
@@ -110,26 +217,8 @@ class LoginService extends StatelessService {
         GoogleAuthProvider googleProvider = GoogleAuthProvider();
         c = await FirebaseAuth.instance.signInWithPopup(googleProvider);
       } else if (Platform.isWindows) {
-        final result = await DesktopWebviewAuth.signIn(GoogleSignInArgs(
-          clientId:
-              '809958656651-ta9g3u2ea0qh34uq78oclk0b0b44tct1.apps.googleusercontent.com',
-          redirectUri:
-              'https://arcaneutilitymaster.firebaseapp.com/__/auth/handler',
-          scope: 'email',
-        ));
-
         verbose("Logging in with GSToken on Windows");
-        var at =
-            GoogleAuthProvider.credential(accessToken: result!.accessToken);
-        verbose("Got Access Token ${at.asMap()}");
-
-        verbose("Running firebase login");
-        c = await FirebaseAuth.instance.signInWithCredential(AuthCredential(
-          providerId: at.providerId,
-          signInMethod: at.signInMethod,
-          accessToken: at.accessToken,
-          token: at.token,
-        ));
+        c = await signInWithGoogleWindows(retry: retry);
       } else {
         GoogleSignInAccount? googleUser =
             await GoogleSignIn.standard().signIn();

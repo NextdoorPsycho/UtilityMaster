@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:utility_master/pages/home.dart';
-import 'package:utility_master/theme/widgets/generic/sidebar.dart';
+import 'package:utility_master/theme/widgets/sidebar.dart';
 
 // Define the pages you will navigate to
 class PageOne extends StatelessWidget {
@@ -63,8 +63,8 @@ class _LandingPageState extends State<LandingPage> {
             },
             sidebarItems: [
               SideBarItem(iconSelected: Icons.home, text: 'Home'),
-              SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
               SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
+              SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
             ],
             widthSwitch:
                 900, // This is an example breakpoint for a responsive layout

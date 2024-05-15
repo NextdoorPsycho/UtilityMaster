@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:serviced/serviced.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
-import 'package:utility_master/main.dart';
+import 'package:utility_master/util/magic.dart';
 import 'package:utility_master/util/svc/login.dart';
 
 class UMB {

@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:padded/padded.dart';
 import 'package:universal_io/io.dart';
-import 'package:utility_master/theme/widgets/generic/apple_button.dart';
-import 'package:utility_master/theme/widgets/generic/google_button.dart';
+import 'package:utility_master/theme/widgets/apple_button.dart';
+import 'package:utility_master/theme/widgets/google_button.dart';
 
 class LoginContent extends StatelessWidget {
   const LoginContent({super.key});

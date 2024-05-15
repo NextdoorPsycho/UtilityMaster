@@ -28,7 +28,13 @@ class _SplashScreenState extends State<SplashScreen> {
         });
       } else {
         verbose("Not yet signed in. Going to login.");
-        LoginScreen.open(context);
+        svc<LoginService>().attemptAutoSignIn().then((value) {
+          if (value) {
+            LandingPage.open(context);
+          } else {
+            LoginScreen.open(context);
+          }
+        });
       }
     });
     verbose("IOnit splasha");
