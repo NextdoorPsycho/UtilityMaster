@@ -1,37 +1,44 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_crud/fire_crud.dart';
-import 'package:utility_master/data/user/app_user.dart';
+import 'package:flutter/material.dart';
+import 'package:utility_master/data/user/user.dart';
+import 'package:utility_master/data/user/user_settings.dart';
 
-import 'admin/app_user_restricted.dart';
+import 'user/user_capabilities.dart';
 
 class Crud {
-  // static FireCrud<MTGDeck> deck(String userId) => FireCrud(
-  //   collection: FirebaseFirestore.instance
-  //       .collection('user')
-  //       .doc(userId)
-  //       .collection('decks'),
-  //   toMap: (d) => d.toMap(),
-  //   fromMap: (id, data) => MTGDeckMapper.fromMap(data)..id = id,
-  // );
-  //
-  // static FireCrud<MTGCard> card(String userId) => FireCrud(
-  //   collection: FirebaseFirestore.instance
-  //       .collection('user')
-  //       .doc(userId)
-  //       .collection('cards'),
-  //   toMap: (d) => d.toMap(),
-  //   fromMap: (id, data) => MTGCardMapper.fromMap(data)..id = id,
-  // );
+  static FireCrudEvent usage = FireCrudEvent();
 
-  static FireCrud<AppUser> user() => FireCrud(
-        collection: FirebaseFirestore.instance.collection('user'),
-        toMap: (d) => d.toMap(),
-        fromMap: (id, data) => AppUserMapper.fromMap(data)..id = id,
-      );
+  static FireCrud<UserCapabilities> userCapabilities(String uid) => FireCrud<UserCapabilities>(
+      usageTracker: (event) => usage += event,
+      collection: FirebaseFirestore.instance.collection("user/$uid/data"),
+      toMap: (t) => t.toMap(),
+      emptyObject: UserCapabilities(admin: false)..exists = false,
+      fromMap: (id, map) => UserCapabilitiesMapper.fromMap(map)
+        ..uid = id
+        ..exists ??= true);
 
-  static FireCrud<AppUserRestricted> userRestricted(String uid) => FireCrud(
-        collection: FirebaseFirestore.instance.collection('user').doc(uid).collection("restricted"),
-        toMap: (d) => d.toMap(),
-        fromMap: (id, data) => AppUserRestrictedMapper.fromMap(data)..id = id,
-      );
+  static FireCrud<UserSettings> userSettings(String uid) => FireCrud<UserSettings>(
+      usageTracker: (event) => usage += event,
+      collection: FirebaseFirestore.instance.collection("user/$uid/data"),
+      toMap: (t) => t.toMap(),
+      emptyObject: UserSettings(
+        themeMode: ThemeMode.system.name,
+      )..exists = false,
+      fromMap: (id, map) => UserSettingsMapper.fromMap(map)
+        ..uid = id
+        ..exists ??= true);
+
+  static FireCrud<User> user() => FireCrud<User>(
+      usageTracker: (event) => usage += event,
+      collection: FirebaseFirestore.instance.collection("user"),
+      toMap: (t) => t.toMap(),
+      emptyObject: User(
+        email: "",
+        firstName: "",
+        lastName: "",
+      )..exists = false,
+      fromMap: (id, map) => UserMapper.fromMap(map)
+        ..uid = id
+        ..exists ??= true);
 }

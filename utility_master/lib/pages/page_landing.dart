@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:utility_master/pages/home/home.dart';
+import 'package:go_router/go_router.dart';
+import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/theme/widgets/um_unified/um_sidebar.dart';
 
 // Define the pages you will navigate to
 class PageOne extends StatelessWidget {
+  static void open(BuildContext context) => context.go("/page1");
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Page One'));
+    return const Center(child: Text('Page One'));
   }
 }
 
 class PageTwo extends StatelessWidget {
+  static void open(BuildContext context) => context.go("/page2");
+
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Page Two'));
+    return const Center(child: Text('Page Two'));
   }
 }
 
 class PageThree extends StatelessWidget {
+  static void open(BuildContext context) => context.go("/page3");
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Page Three'));
+    return const Center(child: Text('Page Three'));
   }
 }
 
 // LandingPage with Sidebar
 class LandingPage extends StatefulWidget {
+  static void open(BuildContext context) => context.go("/");
+
   @override
   _LandingPageState createState() => _LandingPageState();
 }
@@ -35,11 +43,11 @@ class _LandingPageState extends State<LandingPage> {
 
   // Pages for navigation
   final List<Widget> _pages = [
-    Home(),
-    Home(),
+    const Home(),
+    const Home(),
     PageTwo(),
     PageThree(),
-    Home(),
+    const Home(),
   ];
 
   @override
@@ -58,7 +66,8 @@ class _LandingPageState extends State<LandingPage> {
               SideBarItem(iconSelected: Icons.account_circle, text: 'Profile'),
               SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
             ],
-            widthSwitch: 900, // This is an example breakpoint for a responsive layout
+            widthSwitch:
+                900, // This is an example breakpoint for a responsive layout
           ),
           Expanded(
             child: _pages.elementAt(_selectedIndex),
