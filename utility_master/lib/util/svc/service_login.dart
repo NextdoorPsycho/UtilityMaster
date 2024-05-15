@@ -112,7 +112,7 @@ class LoginService extends StatelessService {
       } else if (Platform.isWindows) {
         final result = await DesktopWebviewAuth.signIn(GoogleSignInArgs(
           clientId:
-              '809958656651-7c1371kl1imvir1t3qli0nl25rgkpjd4.apps.googleusercontent.com',
+              '809958656651-ta9g3u2ea0qh34uq78oclk0b0b44tct1.apps.googleusercontent.com',
           redirectUri:
               'https://arcaneutilitymaster.firebaseapp.com/__/auth/handler',
           scope: 'email',

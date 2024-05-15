@@ -68,14 +68,12 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyDSkFIQhj9LASg9QgljTvMeJf6LTBEJ0G8',
-    appId: '1:809958656651:web:68252d70767189d543e28e',
-    messagingSenderId: '809958656651',
-    projectId: 'arcaneutilitymaster',
-    authDomain: 'arcaneutilitymaster.firebaseapp.com',
-    databaseURL: 'https://arcaneutilitymaster-default-rtdb.firebaseio.com',
-    storageBucket: 'arcaneutilitymaster.appspot.com',
-    measurementId: 'G-C07S01W0RG',
-  );
-
+      apiKey: "AIzaSyDSkFIQhj9LASg9QgljTvMeJf6LTBEJ0G8",
+      authDomain: "arcaneutilitymaster.firebaseapp.com",
+      databaseURL: "https://arcaneutilitymaster-default-rtdb.firebaseio.com",
+      projectId: "arcaneutilitymaster",
+      storageBucket: "arcaneutilitymaster.appspot.com",
+      messagingSenderId: "809958656651",
+      appId: "1:809958656651:web:68252d70767189d543e28e",
+      measurementId: "G-C07S01W0RG");
 }
