@@ -17,9 +17,6 @@ service cloud.firestore {
     match /user/{user}{
       allow read,update,create: if isUser(user);
 
-      match /{udata=**}{
-        allow read: if isUser(user);
-      }
 
       match /chat/{chat} {
         allow write: if isUser(user);

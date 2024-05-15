@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:padded/padded.dart';
-import 'package:utility_master/theme/widgets/generic/text.dart';
+import 'package:utility_master/theme/widgets/text.dart';
 import 'package:utility_master/util/bloc/login.dart';
 
 class GoogleSignInButton extends StatelessWidget {

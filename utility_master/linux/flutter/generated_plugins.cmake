@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   desktop_webview_auth
   file_selector_linux
+  flutter_acrylic
   rive_common
   screen_retriever
   url_launcher_linux
