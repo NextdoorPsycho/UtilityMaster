@@ -13,8 +13,6 @@ import 'package:utility_master/data/user/settings.dart';
 import 'package:utility_master/data/user/user.dart';
 import 'package:utility_master/util/magic.dart';
 
-typedef ArcaneUserData = Map<String, dynamic>;
-
 class UserService extends StatelessService {
   String? _grabFirstName;
   String? _grabLastName;

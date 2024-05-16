@@ -37,8 +37,8 @@ class SettingsPage extends StatelessWidget {
                   initialValue: 100,
                   max: 100,
                 ),
-                Divider(),
-                Padding(
+                const Divider(),
+                const Padding(
                   padding: EdgeInsets.all(20),
                   child: Text("Settings Page Content"),
                 ),

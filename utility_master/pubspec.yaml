@@ -35,8 +35,8 @@ dependencies:
   desktop_webview_auth: ^0.0.15
 
   # UI - Specific dependencies
-  titlebar_buttons:
-    path: ../packages/titlebar_buttons
+  common_svgs: ^1.0.2
+  bar: ^1.0.0
   loading_animation_widget: ^1.2.1
   carousel_slider: ^4.2.1
   pandabar: ^0.1.2

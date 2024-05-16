@@ -73,6 +73,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  bar:
+    dependency: "direct main"
+    description:
+      name: bar
+      sha256: bb69b7aaee95ed262cba8f3adbeb990423ff7700e127858e0ab4d38353c8be8d
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   bloc:
     dependency: transitive
     description:
@@ -281,6 +289,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  common_svgs:
+    dependency: "direct main"
+    description:
+      name: common_svgs
+      sha256: b31f6b3a8e6bf6bc4f12bbe7d9f582c14cfca4eb5955cf2f082134ab1ee95c21
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   convert:
     dependency: transitive
     description:
@@ -1029,6 +1045,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
+  modern_titlebar_buttons:
+    dependency: transitive
+    description:
+      name: modern_titlebar_buttons
+      sha256: "2a65e63587e4f19d2adb6cfdf5c7465a4333f01828f874e40b7f41a8fe42cbfd"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   nested:
     dependency: transitive
     description:
@@ -1442,13 +1466,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.1"
-  titlebar_buttons:
-    dependency: "direct main"
-    description:
-      path: "../packages/titlebar_buttons"
-      relative: true
-    source: path
-    version: "1.0.0"
   toxic:
     dependency: "direct main"
     description:
@@ -1666,5 +1683,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.3.0 <4.0.0"
+  dart: ">=3.3.4 <4.0.0"
   flutter: ">=3.19.0"
