@@ -8,16 +8,16 @@ part 'settings.mapper.dart';
 @MappableClass()
 class UserSettings with UserSettingsMappable {
   String themeMode;
-  WindowEffect windowEffect;
-  double appOpacity;
+  String windowEffect;
+  double themeOpacity;
   String? uid;
   bool? exists;
 
   UserSettings({
     this.themeMode = "dark", // "dark", "light", "system"
-    this.windowEffect = WindowEffect
-        .solid, // "transparent", "disabled", "solid", "aero", "acrylic", "mica"
-    this.appOpacity = 1.0,
+    this.windowEffect =
+        "solid", // "transparent", "disabled", "solid", "aero", "acrylic", "mica"
+    this.themeOpacity = 1.0,
   });
 
   void toggleTheme() {
@@ -37,17 +37,17 @@ class UserSettings with UserSettingsMappable {
 
   WindowEffect get windowEffectEnum {
     switch (windowEffect) {
-      case WindowEffect.transparent:
+      case "transparent":
         return WindowEffect.transparent;
-      case WindowEffect.disabled:
+      case "disabled":
         return WindowEffect.disabled;
-      case WindowEffect.solid:
+      case "solid":
         return WindowEffect.solid;
-      case WindowEffect.aero:
+      case "aero":
         return WindowEffect.aero;
-      case WindowEffect.acrylic:
+      case "acrylic":
         return WindowEffect.acrylic;
-      case WindowEffect.mica:
+      case "mica":
         return WindowEffect.mica;
       default:
         return WindowEffect.solid;
@@ -55,7 +55,7 @@ class UserSettings with UserSettingsMappable {
   }
 
   double get appOpacityRounded {
-    return (appOpacity * 100).round() / 100;
+    return (themeOpacity * 100).round() / 100;
   }
 
   void setThemeMode(ThemeMode mode) {
@@ -63,10 +63,10 @@ class UserSettings with UserSettingsMappable {
   }
 
   void setWindowEffect(WindowEffect effect) {
-    windowEffect = effect;
+    windowEffect = effect.name;
   }
 
   void setAppOpacity(double opacity) {
-    appOpacity = opacity;
+    themeOpacity = opacity;
   }
 }

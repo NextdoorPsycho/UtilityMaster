@@ -27,11 +27,11 @@ class SettingsPage extends StatelessWidget {
               children: [
                 ShadSlider(
                   label: "Opacity for App",
-                  onChanged: (value) {
+                  onChangeEnd: (value) {
                     Crud.userSettings(u).update("settings", {
                       "appOpacity": (svc<UserService>().lastUserSettings
                             ..setAppOpacity(value.toInt() / 100.0))
-                          .appOpacity
+                          .themeOpacity
                     });
                   },
                   initialValue: 100,
