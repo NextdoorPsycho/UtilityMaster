@@ -1,4 +1,5 @@
 import 'package:dart_mappable/dart_mappable.dart';
+import 'package:fast_log/fast_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_acrylic/flutter_acrylic.dart';
 import 'package:flutter_acrylic/window_effect.dart';
@@ -19,10 +20,6 @@ class UserSettings with UserSettingsMappable {
         "solid", // "transparent", "disabled", "solid", "aero", "acrylic", "mica"
     this.themeOpacity = 1.0,
   });
-
-  void toggleTheme() {
-    themeMode = themeMode == "dark" ? "light" : "dark";
-  }
 
   ThemeMode get themeModeEnum {
     switch (themeMode) {
@@ -59,14 +56,22 @@ class UserSettings with UserSettingsMappable {
   }
 
   void setThemeMode(ThemeMode mode) {
+    info("Setting Theme Mode: ${mode.name}");
     themeMode = mode.name;
   }
 
+  void toggleTheme() {
+    info("Toggling Theme Mode to ${themeMode == "dark" ? "light" : "dark"}");
+    themeMode = themeMode == "dark" ? "light" : "dark";
+  }
+
   void setWindowEffect(WindowEffect effect) {
+    info("Setting Window Effect: ${effect.name}");
     windowEffect = effect.name;
   }
 
   void setAppOpacity(double opacity) {
+    info("Setting App Opacity: $opacity");
     themeOpacity = opacity;
   }
 }

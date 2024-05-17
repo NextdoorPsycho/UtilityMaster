@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/pages/settings.dart';
 import 'package:utility_master/pages/showcase.dart';
-import 'package:utility_master/theme/widgets/sidebar.dart';
+import 'package:utility_master/theme/animatory/sidebar.dart';
 
 // LandingPage with Sidebar
 class LandingPage extends StatefulWidget {
