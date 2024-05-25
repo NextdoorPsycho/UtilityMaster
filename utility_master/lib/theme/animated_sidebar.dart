@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:utility_master/theme/animatory/ticking_icon.dart';
+import 'package:utility_master/theme/animated_ticking_icon.dart';
 
 ///ignore: must_be_immutable
-class UMSidebar extends StatefulWidget {
+class AnimatedSidebar extends StatefulWidget {
   final ValueChanged<int>? onTap;
   double widthSwitch;
   double borderRadius;
@@ -11,7 +11,7 @@ class UMSidebar extends StatefulWidget {
   double sideBarSmallWidth;
   List<SideBarItem> sidebarItems;
   bool settingsDivider;
-  UMSidebar({
+  AnimatedSidebar({
     super.key,
     this.borderRadius = 20,
     this.sideBarWidth = 260,
@@ -23,10 +23,10 @@ class UMSidebar extends StatefulWidget {
   });
 
   @override
-  State<UMSidebar> createState() => _UMSidebarState();
+  State<AnimatedSidebar> createState() => _AnimatedSidebarState();
 }
 
-class _UMSidebarState extends State<UMSidebar>
+class _AnimatedSidebarState extends State<AnimatedSidebar>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _widthAnimation;
@@ -34,7 +34,7 @@ class _UMSidebarState extends State<UMSidebar>
   late double _width;
   late double sideBarItemHeight = 48;
   int itemIndex = 0;
-  bool _minimize = false;
+  final bool _minimize = false;
 
   @override
   void initState() {
@@ -42,8 +42,8 @@ class _UMSidebarState extends State<UMSidebar>
     if (widget.sidebarItems.isEmpty) {
       throw "Side bar Items Can't be empty";
     }
-    _animationController =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 100));
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 100));
     _widthAnimation =
         Tween<double>(begin: widget.sideBarSmallWidth, end: widget.sideBarWidth)
             .animate(_animationController);

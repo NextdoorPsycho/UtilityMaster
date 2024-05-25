@@ -5,12 +5,10 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   cloud_firestore
   desktop_webview_auth
-  file_selector_windows
   firebase_auth
   firebase_core
-  flutter_acrylic
-  rive_common
   screen_retriever
+  share_plus
   url_launcher_windows
   window_manager
 )

@@ -2,7 +2,6 @@ import 'package:fast_log/fast_log.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
-import 'package:utility_master/pages/router.dart';
 
 class ShowcasePage extends StatelessWidget {
   static void open(BuildContext context) => context.go("/showcase");
@@ -555,9 +554,6 @@ class _SettingsMeatState extends State<_SettingsMeat> {
                         const Text('There was a problem with your request'),
                     action: ShadButton.destructive(
                       text: const Text('Try again'),
-                      border: Border.all(
-                        color: theme.colorScheme.destructiveForeground,
-                      ),
                       onPressed: () => ShadToaster.of(context).hide(),
                     ),
                   ),
@@ -1051,13 +1047,14 @@ class _EditProfileSheet extends StatelessWidget {
   BoxConstraints get constraints {
     return switch (side) {
       ShadSheetSide.top || ShadSheetSide.bottom => BoxConstraints.tightFor(
-          width: MediaQuery.sizeOf(
-                  router.routerDelegate.navigatorKey.currentContext!)
-              .width),
+          // width: MediaQuery.sizeOf(
+          //         router.routerDelegate.navigatorKey.currentContext!)
+          //     .width),
+          ),
       ShadSheetSide.left || ShadSheetSide.right => BoxConstraints.tightFor(
-          height: MediaQuery.sizeOf(
-                  router.routerDelegate.navigatorKey.currentContext!)
-              .height,
+          // height: MediaQuery.sizeOf(
+          //         router.routerDelegate.navigatorKey.currentContext!)
+          //     .height,
           width: 512,
         ),
     };

@@ -14,69 +14,31 @@ dependencies:
   flutter:
     sdk: flutter
   #Dans dependencies // Cancer
+  arcane: ^1.0.0
   toxic: ^1.2.4
   padded: ^1.0.1
   flyout: ^1.0.2
   throttled: ^1.0.1
-  fire_crud: ^1.1.8 # Firebase CRUD
-  collection_walker: ^1.1.1 # Firebase CRUD
   dialoger: ^1.0.0
-  fast_log: ^1.0.7
-
-  # Firebase - Specific dependencies
-  firebase_core: ^2.31.0
-  cloud_functions: ^4.7.4
-  cloud_firestore: ^4.17.3
-  firebase_analytics: ^10.10.5
-  firebase_auth: ^4.19.5
-  firebase_ui_auth: ^1.14.0
-  google_sign_in: ^6.2.1
-  sign_in_with_apple: ^6.1.0
-  desktop_webview_auth: ^0.0.15
-
-  # UI - Specific dependencies
   common_svgs: ^1.0.2
-  bar: ^1.0.0
+  # UI - Specific dependencies
+  window_manager: ^0.3.9
   loading_animation_widget: ^1.2.1
-  carousel_slider: ^4.2.1
-  pandabar: ^0.1.2
   flutter_launcher_icons: ^0.13.1
   animated_text_kit: ^4.2.2
-  shadcn_ui: ^0.4.6
-  window_manager: ^0.3.8
-  flutter_native_splash: ^2.4.0
-  flutter_svg: ^2.0.10+1
-  flutter_acrylic: ^1.1.3
-
-
+  shadcn_ui: ^0.5.1
   # Data - Specific dependencies
   universal_io: ^2.2.2
-  path_provider: ^2.1.3
   provider: ^6.1.2
   path: ^1.9.0
-  async: ^2.11.0
   uuid: ^4.4.0
   dart_mappable: ^4.2.2
-  shared_preferences: ^2.2.3
-  build_runner: ^2.4.9
-  serviced: ^1.0.1
+  build_runner: ^2.4.10
   rxdart: ^0.27.7
-  precision_stopwatch: ^1.0.2
-  flutter_bloc: ^8.1.5
-  lzstring: ^2.0.0+2
-
   # Misc - Unspecific dependencies
-  image: ^4.1.7
-  url_launcher: ^6.2.6
+  image: ^4.2.0
   app_rename: ^0.0.1  # flutter pub run app_rename:main all="somename"
-  image_picker: ^1.1.1
-  restart_app: ^1.2.1
-  analyzer: ^5.13.0
-  go_router: ^14.1.1
-  hive_flutter: ^1.1.0
-  hive: ^2.2.3
-  hydrated_bloc: ^9.1.5
-  synchronized: ^3.1.0+1
+  go_router: ^14.1.3
 
 dev_dependencies:
   flutter_test:
@@ -123,4 +85,4 @@ scripts:
     directory: android
   build_appbundle_release: flutter build appbundle --release
   build_apk_release: flutter build apk --release
-  validate_dependencies: flutter pub run dependency_valida
+  validate_dependencies: flutter pub run dependency_validator

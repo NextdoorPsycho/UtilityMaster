@@ -1,20 +1,21 @@
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:arcane/arcane.dart';
 import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/pages/settings.dart';
 import 'package:utility_master/pages/showcase.dart';
-import 'package:utility_master/theme/animatory/sidebar.dart';
+import 'package:utility_master/theme/animated_sidebar.dart';
 
-// LandingPage with Sidebar
-class LandingPage extends StatefulWidget {
-  static void open(BuildContext context) => context.go("/");
+class LandingPage extends ArcaneStatefulScreen {
+  const LandingPage({super.key});
 
   @override
-  _LandingPageState createState() => _LandingPageState();
+  State<LandingPage> createState() => _LandingPageState();
+
+  @override
+  String toPath() => "/";
 }
 
 class _LandingPageState extends State<LandingPage> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   // Pages for navigation
   final List<Widget> _pages = [
@@ -24,11 +25,17 @@ class _LandingPageState extends State<LandingPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    _selectedIndex = 0;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Row(
         children: <Widget>[
-          UMSidebar(
+          AnimatedSidebar(
             onTap: (index) {
               setState(() {
                 _selectedIndex = index;
@@ -39,12 +46,9 @@ class _LandingPageState extends State<LandingPage> {
               SideBarItem(iconSelected: Icons.build, text: 'Showcase'),
               SideBarItem(iconSelected: Icons.settings, text: 'Settings'),
             ],
-            widthSwitch:
-                900, // This is an example breakpoint for a responsive layout
+            widthSwitch: 900, // Example breakpoint for a responsive layout
           ),
-          Expanded(
-            child: _pages.elementAt(_selectedIndex),
-          ),
+          Expanded(child: _pages[_selectedIndex]),
         ],
       ),
     );

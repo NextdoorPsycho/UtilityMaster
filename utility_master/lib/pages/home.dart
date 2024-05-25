@@ -1,28 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:utility_master/theme/animatory/ticking_icon.dart';
-import 'package:utility_master/theme/widgets/button.dart';
-import 'package:utility_master/theme/widgets/text.dart';
+import 'package:utility_master/theme/animated_ticking_icon.dart';
+import 'package:utility_master/theme/button.dart';
+import 'package:utility_master/theme/text.dart';
 
-class Home extends StatefulWidget {
+class Home extends StatelessWidget {
   const Home({super.key});
-
-  static void open(BuildContext context) => context.go("/");
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +29,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
             'Change Everything'),
         const SizedBox(height: 40),
         UMB.themeToggle(context),
-        UMB.signOut(context),
         const Expanded(flex: 1, child: SizedBox()),
       ],
     );
