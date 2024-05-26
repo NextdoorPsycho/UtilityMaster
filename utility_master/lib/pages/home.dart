@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:arcane/arcane.dart';
 import 'package:utility_master/theme/animated_ticking_icon.dart';
 import 'package:utility_master/theme/button.dart';
 import 'package:utility_master/theme/text.dart';
@@ -19,7 +19,6 @@ class Home extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Expanded(flex: 1, child: SizedBox()),
         const SizedBox(child: Row(mainAxisAlignment: MainAxisAlignment.center)),
         const TickingIcon(icon: Icons.hexagon_outlined, size: 200),
         const SizedBox(height: 5),
@@ -29,8 +28,10 @@ class Home extends StatelessWidget {
             'Change Everything'),
         const SizedBox(height: 40),
         UMB.themeToggle(context),
-        const Expanded(flex: 1, child: SizedBox()),
       ],
     );
   }
+
+  @override
+  String toPath() => "/home";
 }

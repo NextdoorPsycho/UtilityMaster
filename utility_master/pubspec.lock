@@ -53,10 +53,10 @@ packages:
     dependency: "direct main"
     description:
       name: arcane
-      sha256: d3152a69099b8f33be104bbfe60fc73521242f1ba0087f087ba8373d9908070b
+      sha256: abc2b5859f24f5ef642d4483f8c00cd8c665f4e2a8f26b54849c9f120f501889
       url: "https://pub.dev"
     source: hosted
-    version: "1.0.0"
+    version: "1.0.1"
   archive:
     dependency: transitive
     description:

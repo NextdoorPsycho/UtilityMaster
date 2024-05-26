@@ -1,5 +1,5 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:flutter/material.dart';
+import 'package:arcane/arcane.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
 enum UMTStyle { h1, h2, h3, h4, lead, small, muted, p, blockquote, table }
@@ -82,7 +82,8 @@ class UMT {
     );
   }
 
-  static Widget animated(BuildContext context, UMTStyle style, Duration speed, String text) {
+  static Widget animated(
+      BuildContext context, UMTStyle style, Duration speed, String text) {
     TextStyle textStyle;
     switch (style) {
       case UMTStyle.h1:
@@ -121,6 +122,9 @@ class UMT {
     }
 
     return AnimatedTextKit(
+      key: ValueKey(
+        Arcane.isDark ? 'darkAnimatedText$text' : 'lightAnimatedText$text',
+      ),
       animatedTexts: [
         TypewriterAnimatedText(
           text,

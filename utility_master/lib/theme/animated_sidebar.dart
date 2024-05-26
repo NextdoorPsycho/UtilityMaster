@@ -88,7 +88,7 @@ class _AnimatedSidebarState extends State<AnimatedSidebar>
         margin: const EdgeInsets.all(20),
         width: _widthAnimation.value,
         decoration: BoxDecoration(
-          color: ShadTheme.of(context).colorScheme.card.withOpacity(0.9),
+          color: ShadTheme.of(context).colorScheme.card.withOpacity(0.5),
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
         child: child,
