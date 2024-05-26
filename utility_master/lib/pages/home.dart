@@ -1,7 +1,7 @@
 import 'package:arcane/arcane.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/theme/animated_ticking_icon.dart';
 import 'package:utility_master/theme/button.dart';
-import 'package:utility_master/theme/text.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -22,10 +22,9 @@ class Home extends StatelessWidget {
         const SizedBox(child: Row(mainAxisAlignment: MainAxisAlignment.center)),
         const TickingIcon(icon: Icons.hexagon_outlined, size: 200),
         const SizedBox(height: 5),
-        UMT.h0(context, "Utility Master"),
+        Text("Utility Master", style: ShadTheme.of(context).textTheme.h1Large),
         const SizedBox(height: 15),
-        UMT.animated(context, UMTStyle.p, const Duration(milliseconds: 100),
-            'Change Everything'),
+        Text("Change Everything", style: ShadTheme.of(context).textTheme.p),
         const SizedBox(height: 40),
         UMB.themeToggle(context),
       ],

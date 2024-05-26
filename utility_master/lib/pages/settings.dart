@@ -1,7 +1,7 @@
 import 'package:arcane/feature/application/router.dart';
 import 'package:flutter/material.dart';
 import 'package:padded/padded.dart';
-import 'package:utility_master/theme/text.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class SettingsPage extends ArcaneStatelessScreen {
   const SettingsPage({Key? key});
@@ -10,7 +10,7 @@ class SettingsPage extends ArcaneStatelessScreen {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: UMT.h1(context, "Settings"),
+        title: Text("Settings", style: ShadTheme.of(context).textTheme.h1),
       ),
       body: const SingleChildScrollView(
         child: PaddingAll(

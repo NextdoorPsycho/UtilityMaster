@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
 class TickingIcon extends StatefulWidget {
   final IconData icon;
@@ -62,6 +63,7 @@ class _TickingIconState extends State<TickingIcon>
       child: Icon(
         widget.icon,
         size: widget.size,
+        color: ShadTheme.of(context).colorScheme.primary,
       ),
     );
   }

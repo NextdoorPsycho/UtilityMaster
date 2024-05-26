@@ -88,7 +88,7 @@ class _AnimatedSidebarState extends State<AnimatedSidebar>
         margin: const EdgeInsets.all(20),
         width: _widthAnimation.value,
         decoration: BoxDecoration(
-          color: ShadTheme.of(context).colorScheme.card.withOpacity(0.5),
+          color: ShadTheme.of(context).colorScheme.card,
           borderRadius: BorderRadius.circular(widget.borderRadius),
         ),
         child: child,
@@ -103,7 +103,9 @@ class _AnimatedSidebarState extends State<AnimatedSidebar>
             child: _width >= widget.widthSwitch && !_minimize
                 ? Row(
                     children: [
-                      const Icon(Icons.hexagon_outlined, size: 50),
+                      Icon(Icons.hexagon_outlined,
+                          size: 50,
+                          color: ShadTheme.of(context).colorScheme.primary),
                       Text(
                         "  Utility Master",
                         style: ShadTheme.of(context).textTheme.h4,
@@ -151,7 +153,8 @@ class _AnimatedSidebarState extends State<AnimatedSidebar>
                                       ShadTheme.of(context).textTheme.table,
                                   unSelectedIconColor: ShadTheme.of(context)
                                       .colorScheme
-                                      .foreground,
+                                      .foreground
+                                      .withOpacity(0.5),
                                   unSelectedTextColor: ShadTheme.of(context)
                                       .colorScheme
                                       .cardForeground,
@@ -247,7 +250,7 @@ Widget sideBarItem({
       highlightColor: highlightColor,
       child: Container(
         color: isSelected
-            ? Colors.grey
+            ? Colors.grey.withOpacity(0.1)
             : Colors.transparent, // Highlight if selected
         height: height,
         padding: const EdgeInsets.all(12),

@@ -3,7 +3,7 @@ import 'package:common_svgs/common_svgs.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
-import 'package:utility_master/theme/bg/tiled_squares.dart';
+import 'package:utility_master/theme/bg/blurred_static_squares.dart';
 import 'package:utility_master/theme/theme_dark.dart';
 
 import 'firebase_options.dart';
@@ -65,35 +65,33 @@ void main() => Arcane(
             child: ArcaneApp(
               background: Builder(
                 builder: (context) => OpalBackground(
-                  child: TiledSquares(
+                  child: BlurredStaticSquares(
+                      blurSigmaX: 50,
+                      blurSigmaY: 50,
                       key: UniqueKey(),
-                      gridSize: 20,
-                      minAnimationDuration: 500,
+                      squareSize: 35,
+                      minAnimationDuration: 350,
                       maxAnimationDuration: 2000,
-                      color: Arcane.isDark
-                          ? const Color(0xFF020D2C)
-                          : const Color(0xFFABC579)),
+                      color: ShadTheme.of(context).colorScheme.ring.withOpacity(
+                          1)), //opacity to 1 fir this one to look nice otherwise 0.5
                 ),
               ),
-              titleBar: ArcaneTitleBar(
-                title: const Text("Custom Title"),
-                leading: SvgPicture.string(
-                  svgArcaneArts,
-                  width: 28,
-                  height: 28,
-                ),
+              titleBar: const ArcaneTitleBar(
+                title: PaddingLeft(padding: 10, child: Text("Utility Master")),
+                leading:
+                    Icon(Icons.hexagon_outlined, size: 25, color: Colors.white),
                 theme: PlatformTheme.windows,
               ),
             ))),
     opalBackgroundOpacity: 1,
-    opalCanvasOpacity: 0.5);
+    opalCanvasOpacity: 0.75);
 
 ShadThemeData get shadDarkTheme => ShadThemeData(
-    colorScheme: const MonochromeShadSlateColorScheme.dark(),
+    colorScheme: MonochromeShadSlateColorScheme.blue(),
     brightness: Brightness.dark);
 
 ShadThemeData get shadLightTheme => ShadThemeData(
-    colorScheme: const MonochromeShadSlateColorScheme.light(),
+    colorScheme: MonochromeShadSlateColorScheme.red(),
     brightness: Brightness.light);
 
 ShadThemeData get shadTheme {
