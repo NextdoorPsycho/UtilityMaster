@@ -18,8 +18,8 @@ class BlurredStaticSquares extends StatefulWidget {
     this.squareSize = 20.0,
     this.minAnimationDuration = 500,
     this.maxAnimationDuration = 2000,
-    this.blurSigmaX = 10.0,
-    this.blurSigmaY = 10.0,
+    this.blurSigmaX = 20.0, // Increased blur value for X direction
+    this.blurSigmaY = 20.0, // Increased blur value for Y direction
   });
 
   @override
@@ -96,14 +96,36 @@ class _BlurredStaticSquaresState extends State<BlurredStaticSquares>
             },
           ),
           Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: widget.blurSigmaX,
-                sigmaY: widget.blurSigmaY,
-              ),
-              child: Container(
-                color: Colors.transparent,
-              ),
+            child: Stack(
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: widget.blurSigmaX,
+                    sigmaY: widget.blurSigmaY,
+                  ),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: widget.blurSigmaX * 1.5,
+                    sigmaY: widget.blurSigmaY * 1.5,
+                  ),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+                BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: widget.blurSigmaX * 2.0,
+                    sigmaY: widget.blurSigmaY * 2.0,
+                  ),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
+              ],
             ),
           ),
         ],

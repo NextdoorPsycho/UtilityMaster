@@ -66,14 +66,14 @@ void main() => Arcane(
               background: Builder(
                 builder: (context) => OpalBackground(
                   child: BlurredStaticSquares(
-                      blurSigmaX: 50,
-                      blurSigmaY: 50,
+                      blurSigmaX: 40,
+                      blurSigmaY: 40,
                       key: UniqueKey(),
                       squareSize: 35,
                       minAnimationDuration: 350,
                       maxAnimationDuration: 2000,
                       color: ShadTheme.of(context).colorScheme.ring.withOpacity(
-                          1)), //opacity to 1 fir this one to look nice otherwise 0.5
+                          0.5)), //opacity to 1 fir this one to look nice otherwise 0.5
                 ),
               ),
               titleBar: const ArcaneTitleBar(
@@ -83,7 +83,7 @@ void main() => Arcane(
                 theme: PlatformTheme.windows,
               ),
             ))),
-    opalBackgroundOpacity: 1,
+    opalBackgroundOpacity: 0.75,
     opalCanvasOpacity: 0.75);
 
 ShadThemeData get shadDarkTheme => ShadThemeData(
