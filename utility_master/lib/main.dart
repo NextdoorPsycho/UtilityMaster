@@ -3,6 +3,7 @@ import 'package:common_svgs/common_svgs.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
+import 'package:utility_master/theme/bg/tiled_squares.dart';
 import 'package:utility_master/theme/theme_dark.dart';
 
 import 'firebase_options.dart';
@@ -62,18 +63,16 @@ void main() => Arcane(
         }).build((_) => ShadTheme(
             data: shadTheme,
             child: ArcaneApp(
-              key: UniqueKey(),
               background: Builder(
-                key: UniqueKey(),
                 builder: (context) => OpalBackground(
-                  key: UniqueKey(),
-                  child: UnicornVomit(
-                    key: UniqueKey(),
-                    dark: ShadTheme.of(context).brightness == Brightness.dark,
-                    points: 6,
-                    blendAmount: 0.5,
-                    blendColor: Arcane.isDark ? Colors.red : Colors.blue,
-                  ),
+                  child: TiledSquares(
+                      key: UniqueKey(),
+                      gridSize: 20,
+                      minAnimationDuration: 500,
+                      maxAnimationDuration: 2000,
+                      color: Arcane.isDark
+                          ? const Color(0xFF020D2C)
+                          : const Color(0xFFABC579)),
                 ),
               ),
               titleBar: ArcaneTitleBar(
@@ -86,8 +85,8 @@ void main() => Arcane(
                 theme: PlatformTheme.windows,
               ),
             ))),
-    opalBackgroundOpacity: 0.1,
-    opalCanvasOpacity: 0.7);
+    opalBackgroundOpacity: 1,
+    opalCanvasOpacity: 0.5);
 
 ShadThemeData get shadDarkTheme => ShadThemeData(
     colorScheme: const MonochromeShadSlateColorScheme.dark(),
