@@ -14,7 +14,7 @@ dependencies:
   flutter:
     sdk: flutter
   #Dans dependencies // Cancer
-  arcane: ^1.0.0
+  arcane: ^1.0.1
   toxic: ^1.2.4
   padded: ^1.0.1
   flyout: ^1.0.2

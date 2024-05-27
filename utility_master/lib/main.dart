@@ -87,11 +87,11 @@ void main() => Arcane(
     opalCanvasOpacity: 0.75);
 
 ShadThemeData get shadDarkTheme => ShadThemeData(
-    colorScheme: MonochromeShadSlateColorScheme.blue(),
+    colorScheme: MonochromeShadSlateColorScheme.red(),
     brightness: Brightness.dark);
 
 ShadThemeData get shadLightTheme => ShadThemeData(
-    colorScheme: MonochromeShadSlateColorScheme.red(),
+    colorScheme: MonochromeShadSlateColorScheme.blue(),
     brightness: Brightness.light);
 
 ShadThemeData get shadTheme {
