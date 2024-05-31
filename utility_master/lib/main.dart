@@ -5,7 +5,6 @@ import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
 import 'package:utility_master/theme/bg/blurred_static_squares.dart';
 import 'package:utility_master/theme/theme_dark.dart';
-import 'package:window_manager/window_manager.dart';
 
 import 'firebase_options.dart';
 
@@ -53,11 +52,6 @@ void main() => Arcane(
     // ],
     darkThemeMods: [],
     title: "ArcaneApp",
-    windowOptions: const WindowOptions(
-      center: true,
-      alwaysOnTop: true,
-      // minimumSize: Size(1600, 900),
-    ),
     exitWindowOnClose: true,
     windowsGoogleSignInClientId:
         "809958656651-ta9g3u2ea0qh34uq78oclk0b0b44tct1.apps.googleusercontent.com",
