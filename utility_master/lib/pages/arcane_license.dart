@@ -1,5 +1,4 @@
 import 'package:arcane/arcane.dart';
-import 'package:shadcn_ui/shadcn_ui.dart';
 
 // This is just simulating a mapping of license names to license text data
 const Map<String, String> licenseTexts = {
@@ -22,18 +21,7 @@ class LicenseViewerScreen extends ArcaneStatelessScreen {
         appBar: AppBar(
           title: const Text("License"),
         ),
-        body: ShadCard(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(licenseTexts[license] ?? "Unknown license"),
-          ),
-          color: ShadTheme.of(context).colorScheme.card.withOpacity(0.5),
-          shadow: BoxShadow(
-            color: ShadTheme.of(context).colorScheme.shadow.withOpacity(0.5),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ),
+        body: Text(licenseTexts[license] ?? "Unknown license"),
       );
 
   // Step 1. We need to use withParams to add our params.
