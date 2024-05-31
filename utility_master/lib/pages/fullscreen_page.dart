@@ -1,7 +1,8 @@
+import 'package:arcane/feature/application/router.dart';
 import 'package:flutter/material.dart';
 
-class FullscreenPage extends StatelessWidget {
-  const FullscreenPage({Key? key}) : super(key: key);
+class FullscreenPage extends ArcaneStatelessScreen {
+  const FullscreenPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,4 +19,7 @@ class FullscreenPage extends StatelessWidget {
       ),
     );
   }
+
+  @override
+  String toPath() => "/fullscreen";
 }

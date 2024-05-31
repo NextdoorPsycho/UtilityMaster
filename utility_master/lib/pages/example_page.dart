@@ -1,5 +1,7 @@
+import 'package:arcane/arcane.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
+
 import 'fullscreen_page.dart';
 
 class ExamplePage extends StatelessWidget {
@@ -12,9 +14,9 @@ class ExamplePage extends StatelessWidget {
         title: const Text('Example Page'),
       ),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => context.go('/fullscreen'),
-          child: const Text('Go to Fullscreen Page'),
+        child: ShadButton.outline(
+          onPressed: () => const FullscreenPage().open(context),
+          text: const Text('Go to Fullscreen Page'),
         ),
       ),
     );

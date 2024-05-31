@@ -3,14 +3,25 @@ import 'package:common_svgs/common_svgs.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
+import 'package:utility_master/pages/fullscreen_page.dart';
 import 'package:utility_master/theme/bg/blurred_static_squares.dart';
-import 'package:utility_master/theme/theme_dark.dart';
+import 'package:utility_master/theme/theme.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'firebase_options.dart';
 
 void main() => Arcane(
-    router: const ArcaneRouter(routes: [
-      LandingPage(),
+    windowOptions: const WindowOptions(
+      size: Size(1600, 900),
+      minimumSize: Size(300, 900),
+      center: true,
+      backgroundColor: Colors.transparent,
+      titleBarStyle: TitleBarStyle.hidden,
+    ),
+    router: ArcaneRouter(routes: [
+      const LandingPage().subRoute([
+        const FullscreenPage(),
+      ]),
     ]),
     firebase: DefaultFirebaseOptions.currentPlatform,
     svgLogo: svgArcaneArts,

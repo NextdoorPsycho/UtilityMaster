@@ -1,6 +1,5 @@
 import 'package:arcane/arcane.dart';
 import 'package:utility_master/pages/example_page.dart';
-import 'package:utility_master/pages/fullscreen_page.dart';
 import 'package:utility_master/pages/home.dart';
 import 'package:utility_master/pages/settings.dart';
 import 'package:utility_master/pages/showcase.dart';
@@ -27,7 +26,6 @@ class _LandingPageState extends State<LandingPage> {
     const ShowcasePage(),
     const LicensePage(),
     const ExamplePage(),
-    const FullscreenPage(),
     const SplitHorizontalPage(),
     const SplitVerticalPage(),
     const SettingsPage(),
@@ -55,7 +53,6 @@ class _LandingPageState extends State<LandingPage> {
               SideBarItem(iconSelected: Icons.build, text: 'Showcase'),
               SideBarItem(iconSelected: Icons.info, text: 'License'),
               SideBarItem(iconSelected: Icons.code, text: 'Example'),
-              SideBarItem(iconSelected: Icons.fullscreen, text: 'Fullscreen'),
               SideBarItem(
                   iconSelected: Icons.vertical_split_outlined,
                   text: 'Split Horizontal'),
