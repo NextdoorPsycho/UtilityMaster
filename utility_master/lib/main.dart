@@ -3,22 +3,15 @@ import 'package:common_svgs/common_svgs.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
-import 'package:utility_master/pages/example_page.dart'; // Added for ExamplePage
-import 'package:utility_master/pages/fullscreen_page.dart'; // Added for FullscreenPage
-import 'package:utility_master/pages/split_horizontal_page.dart'; // Added for SplitHorizontalPage
-import 'package:utility_master/pages/split_vertical_page.dart'; // Added for SplitVerticalPage
 import 'package:utility_master/theme/bg/blurred_static_squares.dart';
 import 'package:utility_master/theme/theme_dark.dart';
+import 'package:window_manager/window_manager.dart';
 
 import 'firebase_options.dart';
 
 void main() => Arcane(
     router: const ArcaneRouter(routes: [
       LandingPage(),
-      ExamplePage(), // Added route for ExamplePage
-      FullscreenPage(), // Added route for FullscreenPage
-      SplitHorizontalPage(), // Added route for SplitHorizontalPage
-      SplitVerticalPage(), // Added route for SplitVerticalPage
     ]),
     firebase: DefaultFirebaseOptions.currentPlatform,
     svgLogo: svgArcaneArts,
@@ -60,6 +53,11 @@ void main() => Arcane(
     // ],
     darkThemeMods: [],
     title: "ArcaneApp",
+    windowOptions: const WindowOptions(
+      center: true,
+      alwaysOnTop: true,
+      // minimumSize: Size(1600, 900),
+    ),
     exitWindowOnClose: true,
     windowsGoogleSignInClientId:
         "809958656651-ta9g3u2ea0qh34uq78oclk0b0b44tct1.apps.googleusercontent.com",
