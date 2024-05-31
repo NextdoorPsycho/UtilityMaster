@@ -4,7 +4,7 @@ import 'package:shadcn_ui/shadcn_ui.dart';
 import 'package:utility_master/data/crud/crud.dart';
 import 'package:utility_master/pages/app_landing.dart';
 import 'package:utility_master/pages/fullscreen_page.dart';
-import 'package:utility_master/theme/bg/static_squares.dart'; // Updated import path
+import 'package:utility_master/theme/bg/blurred_static_squares.dart';
 import 'package:utility_master/theme/theme.dart';
 import 'package:window_manager/window_manager.dart';
 
@@ -78,16 +78,18 @@ void main() => Arcane(
             child: ArcaneApp(
               background: Builder(
                 builder: (context) => OpalBackground(
-                  child: StaticSquares( // Updated widget name and added blurred parameter
+                  child: StaticSquares(
                       blurred: true, // Set blurred parameter to true
-                      blurSigmaX: 40,
-                      blurSigmaY: 40,
+                      blurSigmaX: 10,
+                      blurSigmaY: 10,
                       key: UniqueKey(),
-                      squareSize: 35,
+                      squareSize: 20,
                       minAnimationDuration: 350,
                       maxAnimationDuration: 2000,
-                      color: ShadTheme.of(context).colorScheme.ring.withOpacity(
-                          0.5)), //opacity to 1 fir this one to look nice otherwise 0.5
+                      color: ShadTheme.of(context)
+                          .colorScheme
+                          .ring
+                          .withOpacity(0.5)),
                 ),
               ),
               titleBar: const ArcaneTitleBar(

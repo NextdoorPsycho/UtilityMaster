@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class StaticSquares extends StatefulWidget {
+class StaticSquaresRainbowVomit extends StatefulWidget {
   final Color color;
   final double squareSize;
   final int minAnimationDuration;
@@ -12,8 +12,10 @@ class StaticSquares extends StatefulWidget {
   final double blurSigmaX;
   final double blurSigmaY;
   final bool blurred;
+  final bool hueshift;
+  final double opacity;
 
-  const StaticSquares({
+  const StaticSquaresRainbowVomit({
     super.key,
     this.color = const Color(0xFF5500ff),
     this.squareSize = 20.0,
@@ -22,18 +24,22 @@ class StaticSquares extends StatefulWidget {
     this.blurSigmaX = 20.0,
     this.blurSigmaY = 20.0,
     this.blurred = false,
+    this.hueshift = false,
+    this.opacity = 1.0,
   });
 
   @override
-  State<StaticSquares> createState() => _StaticSquaresState();
+  State<StaticSquaresRainbowVomit> createState() => _StaticSquaresState();
 }
 
-class _StaticSquaresState extends State<StaticSquares>
+class _StaticSquaresState extends State<StaticSquaresRainbowVomit>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   List<Offset>? _positions;
   List<int>? _durations;
   List<double>? _phases;
+  List<int>? _colorDurations;
+  List<double>? _colorPhases;
   final Random _random = Random();
   Size? _previousSize;
 
@@ -73,6 +79,21 @@ class _StaticSquaresState extends State<StaticSquares>
       (_) => _random.nextDouble() * 2 * pi,
     );
 
+    if (widget.hueshift) {
+      _colorDurations = List.generate(
+        totalSquares,
+        (_) =>
+            _random.nextInt(
+                widget.maxAnimationDuration - widget.minAnimationDuration) +
+            widget.minAnimationDuration,
+      );
+
+      _colorPhases = List.generate(
+        totalSquares,
+        (_) => _random.nextDouble() * 2 * pi,
+      );
+    }
+
     _previousSize = size;
   }
 
@@ -101,6 +122,10 @@ class _StaticSquaresState extends State<StaticSquares>
                   phases: _phases!,
                   controller: _controller,
                   squareSize: widget.squareSize,
+                  hueshift: widget.hueshift,
+                  opacity: widget.opacity,
+                  colorDurations: _colorDurations,
+                  colorPhases: _colorPhases,
                 ),
                 child: Container(),
               ),
@@ -108,8 +133,8 @@ class _StaticSquaresState extends State<StaticSquares>
                 Positioned.fill(
                   child: BackdropFilter(
                     filter: ImageFilter.blur(
-                      sigmaX: widget.blurSigmaX,
-                      sigmaY: widget.blurSigmaY,
+                      sigmaX: widget.blurSigmaX * 2,
+                      sigmaY: widget.blurSigmaY * 2,
                     ),
                     child: Container(
                       color: Colors.transparent,
@@ -137,6 +162,10 @@ class SquaresPainter extends CustomPainter {
   final List<double> phases;
   final Animation<double> controller;
   final double squareSize;
+  final bool hueshift;
+  final double opacity;
+  final List<int>? colorDurations;
+  final List<double>? colorPhases;
 
   SquaresPainter({
     required this.color,
@@ -145,18 +174,33 @@ class SquaresPainter extends CustomPainter {
     required this.phases,
     required this.controller,
     required this.squareSize,
+    required this.hueshift,
+    required this.opacity,
+    this.colorDurations,
+    this.colorPhases,
   }) : super(repaint: controller);
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint();
+    final paint = Paint()..color = color.withOpacity(opacity);
 
     for (int i = 0; i < positions.length; i++) {
       final offset = positions[i];
       final time = (controller.value + (phases[i] / (2 * pi))) % 1;
-      final opacity =
-          (sin(time * 2 * pi) * 0.5 + 0.5).toDouble() * color.opacity;
-      paint.color = color.withOpacity(opacity);
+      final localOpacity = (sin(time * 2 * pi) * 0.5 + 0.5).toDouble();
+      paint.color = color.withOpacity(localOpacity * opacity);
+
+      if (hueshift && colorDurations != null && colorPhases != null) {
+        final colorTime = (controller.value + (colorPhases![i] / (2 * pi))) % 1;
+        final hue = (colorTime * 360).toDouble();
+        paint.color = HSLColor.fromAHSL(
+          localOpacity * opacity,
+          hue,
+          1.0,
+          0.5,
+        ).toColor();
+      }
+
       canvas.drawRect(
           Rect.fromLTWH(offset.dx, offset.dy, squareSize, squareSize), paint);
     }
