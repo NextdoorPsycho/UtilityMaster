@@ -4,15 +4,16 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shadcn_ui/shadcn_ui.dart';
 
-class BlurredStaticSquares extends StatefulWidget {
+class StaticSquares extends StatefulWidget {
   final Color color; // The base color of the squares
   final double squareSize; // Size of each square
   final int minAnimationDuration; // Minimum duration of the fade animation
   final int maxAnimationDuration; // Maximum duration of the fade animation
   final double blurSigmaX; // Blur amount in the X direction
   final double blurSigmaY; // Blur amount in the Y direction
+  final bool blurred; // Determines if the background should be blurred
 
-  const BlurredStaticSquares({
+  const StaticSquares({
     super.key,
     this.color = const Color(0xFF5500ff),
     this.squareSize = 20.0,
@@ -20,13 +21,14 @@ class BlurredStaticSquares extends StatefulWidget {
     this.maxAnimationDuration = 2000,
     this.blurSigmaX = 20.0, // Increased blur value for X direction
     this.blurSigmaY = 20.0, // Increased blur value for Y direction
+    this.blurred = false, // Default value for blurred is false
   });
 
   @override
-  State<BlurredStaticSquares> createState() => _BlurredStaticSquaresState();
+  State<StaticSquares> createState() => _StaticSquaresState();
 }
 
-class _BlurredStaticSquaresState extends State<BlurredStaticSquares>
+class _StaticSquaresState extends State<StaticSquares>
     with TickerProviderStateMixin {
   final List<AnimationController> _controllers = [];
   final List<Animation<double>> _animations = [];
@@ -95,39 +97,18 @@ class _BlurredStaticSquaresState extends State<BlurredStaticSquares>
               );
             },
           ),
-          Positioned.fill(
-            child: Stack(
-              children: [
-                BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: widget.blurSigmaX,
-                    sigmaY: widget.blurSigmaY,
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
+          if (widget.blurred) // Only apply blur if blurred is true
+            Positioned.fill(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: widget.blurSigmaX,
+                  sigmaY: widget.blurSigmaY,
                 ),
-                BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: widget.blurSigmaX * 1.5,
-                    sigmaY: widget.blurSigmaY * 1.5,
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
+                child: Container(
+                  color: Colors.transparent,
                 ),
-                BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: widget.blurSigmaX * 2.0,
-                    sigmaY: widget.blurSigmaY * 2.0,
-                  ),
-                  child: Container(
-                    color: Colors.transparent,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
         ],
       ),
     );
