@@ -1,56 +1,105 @@
-import 'dart:ui';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:shadcn_ui/shadcn_ui.dart';
 
-class StaticSquaresPainter extends CustomPainter {
+class StaticSquares extends StatefulWidget {
   final Color color; // The base color of the squares
   final double squareSize; // Size of each square
+  final int minAnimationDuration; // Minimum duration of the fade animation
+  final int maxAnimationDuration; // Maximum duration of the fade animation
 
-  StaticSquaresPainter({
-    required this.color,
-    required this.squareSize,
+  const StaticSquares({
+    super.key,
+    this.color = const Color(0xFF5500ff),
+    this.squareSize = 20.0,
+    this.minAnimationDuration = 500,
+    this.maxAnimationDuration = 2000,
   });
 
   @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
-
-    var countHorizontal = (size.width / squareSize).floor();
-    var countVertical = (size.height / squareSize).floor();
-
-    for (var i = 0; i < countHorizontal; i++) {
-      for (var j = 0; j < countVertical; j++) {
-        var rect = Rect.fromLTWH(i * squareSize, j * squareSize, squareSize, squareSize);
-        canvas.drawRect(rect, paint);
-      }
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
-  }
+  State<StaticSquares> createState() => _StaticSquaresState();
 }
 
-class StaticSquares extends StatelessWidget {
-  final Color color;
-  final double squareSize;
+class _StaticSquaresState extends State<StaticSquares>
+    with TickerProviderStateMixin {
+  final List<AnimationController> _controllers = [];
+  final List<Animation<double>> _animations = [];
 
-  const StaticSquares({
-    Key? key,
-    this.color = const Color(0xFF5500ff),
-    this.squareSize = 20.0,
-  }) : super(key: key);
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initializeGrid());
+  }
+
+  void _initializeGrid() {
+    final int horizontalCount =
+        (MediaQuery.of(context).size.width / widget.squareSize).ceil();
+    final int verticalCount =
+        (MediaQuery.of(context).size.height / widget.squareSize).ceil();
+    final int totalSquares = horizontalCount * verticalCount;
+
+    for (int i = 0; i < totalSquares; i++) {
+      final controller = AnimationController(
+        duration: Duration(
+            milliseconds: Random().nextInt(
+                    widget.maxAnimationDuration - widget.minAnimationDuration) +
+                widget.minAnimationDuration),
+        vsync: this,
+      );
+      final animation = Tween(begin: 1.0, end: 0.0).animate(
+        CurvedAnimation(parent: controller, curve: Curves.easeOutCirc),
+      );
+
+      _controllers.add(controller);
+      _animations.add(animation);
+      controller.repeat(reverse: true);
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-      painter: StaticSquaresPainter(
-        color: color,
-        squareSize: squareSize,
+    final int horizontalCount =
+        (MediaQuery.of(context).size.width / widget.squareSize).ceil();
+    final int verticalCount =
+        (MediaQuery.of(context).size.height / widget.squareSize).ceil();
+    final int totalSquares = horizontalCount * verticalCount;
+
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            color:
+                ShadTheme.of(context).colorScheme.background.withOpacity(0.02),
+          ),
+          GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: horizontalCount,
+              childAspectRatio: 1.0,
+            ),
+            itemCount: totalSquares,
+            itemBuilder: (context, index) {
+              return FadeTransition(
+                opacity: _animations.isNotEmpty
+                    ? _animations[index % _animations.length]
+                    : const AlwaysStoppedAnimation(1.0),
+                child: Container(
+                  color: widget.color,
+                ),
+              );
+            },
+          ),
+        ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    for (var controller in _controllers) {
+      controller.dispose();
+    }
+    super.dispose();
   }
 }
