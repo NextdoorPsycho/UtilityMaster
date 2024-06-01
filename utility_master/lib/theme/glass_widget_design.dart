@@ -1,7 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class GlassWidgetDesign {
-  static Widget GlassBox({
+  static Widget glassBox({
     required double blurX,
     required double blurY,
     required Widget child,
