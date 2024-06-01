@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:utility_master/lib/theme/glass_widget_design.dart'; // Import the GlassWidgetDesign class
 
 class SplitHorizontalPage extends StatelessWidget {
   const SplitHorizontalPage({Key? key}) : super(key: key);
@@ -12,8 +13,9 @@ class SplitHorizontalPage extends StatelessWidget {
       body: Row(
         children: <Widget>[
           Expanded(
-            child: Container(
-              color: Colors.red,
+            child: GlassBox( // Use GlassBox widget from GlassWidgetDesign
+              blurX: 10.0, // Set blurX property for glassmorphic effect
+              blurY: 10.0, // Set blurY property for glassmorphic effect
               child: const Center(
                 child: Text('Left Side'),
               ),
@@ -21,8 +23,9 @@ class SplitHorizontalPage extends StatelessWidget {
           ),
           const VerticalDivider(width: 1),
           Expanded(
-            child: Container(
-              color: Colors.blue,
+            child: GlassBox( // Use GlassBox widget from GlassWidgetDesign
+              blurX: 10.0, // Set blurX property for glassmorphic effect
+              blurY: 10.0, // Set blurY property for glassmorphic effect
               child: const Center(
                 child: Text('Right Side'),
               ),
