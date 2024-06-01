@@ -13,7 +13,7 @@ import 'firebase_options.dart';
 void main() => Arcane(
     windowOptions: const WindowOptions(
       size: Size(1600, 900),
-      minimumSize: Size(300, 900),
+      minimumSize: Size(500, 650),
       center: true,
       backgroundColor: Colors.transparent,
       titleBarStyle: TitleBarStyle.hidden,
