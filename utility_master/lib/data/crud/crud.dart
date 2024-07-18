@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fire_crud/fire_crud.dart';
-import 'package:flutter/material.dart';
 import 'package:utility_master/data/user/capabilities.dart';
 import 'package:utility_master/data/user/settings.dart';
 import 'package:utility_master/data/user/user.dart';
@@ -24,7 +23,7 @@ class Crud {
           collection: FirebaseFirestore.instance.collection("user/$uid/data"),
           toMap: (t) => t.toMap(),
           emptyObject: UserSettings(
-            themeMode: ThemeMode.system.name,
+            developing: false,
           )..exists = false,
           fromMap: (id, map) => UserSettingsMapper.fromMap(map)
             ..uid = id

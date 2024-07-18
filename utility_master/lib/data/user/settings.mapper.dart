@@ -20,15 +20,9 @@ class UserSettingsMapper extends ClassMapperBase<UserSettings> {
   @override
   final String id = 'UserSettings';
 
-  static String _$themeMode(UserSettings v) => v.themeMode;
-  static const Field<UserSettings, String> _f$themeMode =
-      Field('themeMode', _$themeMode, opt: true, def: "dark");
-  static String _$windowEffect(UserSettings v) => v.windowEffect;
-  static const Field<UserSettings, String> _f$windowEffect =
-      Field('windowEffect', _$windowEffect, opt: true, def: "solid");
-  static double _$themeOpacity(UserSettings v) => v.themeOpacity;
-  static const Field<UserSettings, double> _f$themeOpacity =
-      Field('themeOpacity', _$themeOpacity, opt: true, def: 1.0);
+  static bool _$developing(UserSettings v) => v.developing;
+  static const Field<UserSettings, bool> _f$developing =
+      Field('developing', _$developing, opt: true, def: false);
   static String? _$uid(UserSettings v) => v.uid;
   static const Field<UserSettings, String> _f$uid =
       Field('uid', _$uid, mode: FieldMode.member);
@@ -38,18 +32,13 @@ class UserSettingsMapper extends ClassMapperBase<UserSettings> {
 
   @override
   final MappableFields<UserSettings> fields = const {
-    #themeMode: _f$themeMode,
-    #windowEffect: _f$windowEffect,
-    #themeOpacity: _f$themeOpacity,
+    #developing: _f$developing,
     #uid: _f$uid,
     #exists: _f$exists,
   };
 
   static UserSettings _instantiate(DecodingData data) {
-    return UserSettings(
-        themeMode: data.dec(_f$themeMode),
-        windowEffect: data.dec(_f$windowEffect),
-        themeOpacity: data.dec(_f$themeOpacity));
+    return UserSettings(developing: data.dec(_f$developing));
   }
 
   @override
@@ -104,7 +93,7 @@ extension UserSettingsValueCopy<$R, $Out>
 
 abstract class UserSettingsCopyWith<$R, $In extends UserSettings, $Out>
     implements ClassCopyWith<$R, $In, $Out> {
-  $R call({String? themeMode, String? windowEffect, double? themeOpacity});
+  $R call({bool? developing});
   UserSettingsCopyWith<$R2, $In, $Out2> $chain<$R2, $Out2>(Then<$Out2, $R2> t);
 }
 
@@ -117,17 +106,11 @@ class _UserSettingsCopyWithImpl<$R, $Out>
   late final ClassMapperBase<UserSettings> $mapper =
       UserSettingsMapper.ensureInitialized();
   @override
-  $R call({String? themeMode, String? windowEffect, double? themeOpacity}) =>
-      $apply(FieldCopyWithData({
-        if (themeMode != null) #themeMode: themeMode,
-        if (windowEffect != null) #windowEffect: windowEffect,
-        if (themeOpacity != null) #themeOpacity: themeOpacity
-      }));
+  $R call({bool? developing}) => $apply(
+      FieldCopyWithData({if (developing != null) #developing: developing}));
   @override
-  UserSettings $make(CopyWithData data) => UserSettings(
-      themeMode: data.get(#themeMode, or: $value.themeMode),
-      windowEffect: data.get(#windowEffect, or: $value.windowEffect),
-      themeOpacity: data.get(#themeOpacity, or: $value.themeOpacity));
+  UserSettings $make(CopyWithData data) =>
+      UserSettings(developing: data.get(#developing, or: $value.developing));
 
   @override
   UserSettingsCopyWith<$R2, UserSettings, $Out2> $chain<$R2, $Out2>(
